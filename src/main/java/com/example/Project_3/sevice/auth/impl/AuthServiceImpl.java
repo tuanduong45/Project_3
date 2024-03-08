@@ -65,13 +65,10 @@ public class AuthServiceImpl implements AuthService {
         userCreateDTO.setFirstName(signUpRequest.getFirstName());
         userCreateDTO.setLastName(signUpRequest.getLastName());
         userCreateDTO.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
-
         User user = new User();
         BeanUtils.copyProperties(userCreateDTO,user);
         userRepository.save(user);
-        return userCreateDTO ;
-
-
+        return userCreateDTO;
     }
 
     @Override
@@ -87,7 +84,6 @@ public class AuthServiceImpl implements AuthService {
          Set<String> roles = user.getRoles().stream().map(Role::getCode).collect(Collectors.toSet());
          saveAuthInfo(user.getId(),token);
          return JwtAuthenticationResponse.builder().token(token).refreshToken(refreshToken)
-                 .roles(roles).build() ;
+                 .roles(roles).build();
     }
-
 }

@@ -5,15 +5,13 @@ import com.example.Project_3.dtos.user.UserCreateDTO;
 import com.example.Project_3.dtos.user.UserUpdateDTO;
 import com.example.Project_3.sevice.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/user")
 public class UserController {

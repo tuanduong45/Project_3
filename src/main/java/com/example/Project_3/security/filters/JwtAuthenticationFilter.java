@@ -22,6 +22,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Objects;
 
 @Slf4j
 @Component
@@ -41,25 +42,33 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
                                     @NonNull FilterChain filterChain) throws  IOException, ServletException {
         final String authHeader = request.getHeader("Authorization");
 
-//        if(StringUtils.isEmpty(authHeader) || StringUtils.startsWith(authHeader,"Bearer")){
-//            filterChain.doFilter(request,response);
-//            return;
-//        }
-        final String token = jwtUtils.getTokenFromRequest(request);
-        final String userName = jwtUtils.extractUsername(token);
-        if(StringUtils.isNotEmpty(userName) && SecurityContextHolder.getContext().getAuthentication() == null){
-            UserDetails userDetails = this.userDetailsService.loadUserByUsername(userName);
-
-            if(jwtUtils.isTokenValid(token,userDetails)){
-
-                UsernamePasswordAuthenticationToken passwordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-                        userDetails,null,userDetails.getAuthorities());
-
-                passwordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
-                SecurityContextHolder.getContext().setAuthentication(passwordAuthenticationToken);
-            }
+        if(StringUtils.isEmpty(authHeader) || !StringUtils.startsWith(authHeader,"Bearer")){
+            filterChain.doFilter(request,response);
+            return;
         }
+        try {
+             String token = jwtUtils.getTokenFromRequest(request);
+//        final String userName = jwtUtils.extractUsername(token);
+//        if(StringUtils.isNotEmpty(userName) && SecurityContextHolder.getContext().getAuthentication() == null){
+            if(Objects.nonNull(token) && org.springframework.util.StringUtils.hasText(token) && jwtUtils.isTokenExpired(token)) {
+                String userName = jwtUtils.extractUsername(token);
+                UserDetails userDetails = this.userDetailsService.loadUserByUsername(userName);
+
+                if(jwtUtils.isTokenValid(token,userDetails) && Objects.nonNull(userDetails) ){
+
+                    UsernamePasswordAuthenticationToken passwordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+                            userDetails,null,userDetails.getAuthorities());
+
+                    passwordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+                    SecurityContextHolder.getContext().setAuthentication(passwordAuthenticationToken);
+                }
+            }
+        } catch (Exception ex){
+            log.error("Unable to authenticate the user");
+            ex.printStackTrace();
+        }
+
         filterChain.doFilter(request,response);
 
     }
