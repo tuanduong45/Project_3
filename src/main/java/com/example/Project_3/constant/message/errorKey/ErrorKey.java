@@ -37,4 +37,18 @@ public class ErrorKey {
         public static final String PASSWORD = "password";
 
     }
+    public static class Drug {
+        public static final String NOT_FOUND_ERROR_CODE = "drug.error.not.found";
+        public static final String EXISTED_ERROR_CODE = "drug.error.existed";
+
+        public static final String DUPLICATED_ERROR_CODE = "drug.error.duplicated";
+
+        public static final String PERMISSION_DENIED_ERROR_CODE = "drug.error.permission.denied";
+
+        public static final String BAD_CREDENTIALS_ERROR_CODE = "drug.error.bad.credentials";
+        // error key
+        public static final String ID = "id";
+
+
+    }
 }

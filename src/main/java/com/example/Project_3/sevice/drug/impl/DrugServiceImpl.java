@@ -1,11 +1,17 @@
 package com.example.Project_3.sevice.drug.impl;
 
+import com.example.Project_3.constant.message.errorKey.ErrorKey;
+import com.example.Project_3.constant.message.messageConst.MessageConst;
 import com.example.Project_3.dtos.drug.DrugCreateDTO;
+import com.example.Project_3.dtos.drug.DrugUpdateDTO;
 import com.example.Project_3.entities.drug.Drug;
 import com.example.Project_3.entities.drugGroup.DrugGroup;
+import com.example.Project_3.entities.unit.Unit;
 import com.example.Project_3.enums.drugGroupStatus.DrugGroupStatus;
+import com.example.Project_3.exceptions.exceptionFactory.ExceptionFactory;
 import com.example.Project_3.repositories.drug.DrugRepository;
 import com.example.Project_3.repositories.drugGroup.DrugGroupRepository;
+import com.example.Project_3.repositories.unit.UnitRepository;
 import com.example.Project_3.sevice.drug.DrugService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +26,10 @@ public class DrugServiceImpl implements DrugService {
     private DrugRepository drugRepository ;
     @Autowired
     private DrugGroupRepository drugGroupRepository ;
+    @Autowired
+    private UnitRepository unitRepository;
+    @Autowired
+    private ExceptionFactory exceptionFactory;
     @Override
     public void createDrug(DrugCreateDTO drugCreateDTO) {
         Drug drug = new Drug();
@@ -32,6 +42,37 @@ public class DrugServiceImpl implements DrugService {
         drugRepository.save(drug);
         drugGroupRepository.save(drugGroup.get());
     }
+
+    @Override
+    public void updateDrug(Long drugId, DrugUpdateDTO drugUpdateDTO) {
+        Optional<Drug> drug = drugRepository.findById(drugId);
+        if(drug.isPresent()){
+//            Optional<Unit> unit = unitRepository.findById(drugUpdateDTO.getUnitId());
+//            unit.ifPresent(value -> drug.get().setUnit(value));
+            Optional<DrugGroup> drugGroup = drugGroupRepository.findById(drugUpdateDTO.getDrugGroupId());
+            drugGroup.ifPresent(value -> drug.get().setDrugGroup(value) );
+            BeanUtils.copyProperties(drugUpdateDTO,drug.get());
+            drugGroupRepository.save(drugGroup.get());
+            drugRepository.save(drug.get());
+//            unitRepository.save(unit.get());
+        }else {
+            throw exceptionFactory.resourceNotFoundException(ErrorKey.Drug.NOT_FOUND_ERROR_CODE, MessageConst.RESOURCE_NOT_FOUND ,
+                    MessageConst.Resources.DRUG,ErrorKey.Drug.ID);
+        }
+    }
+
+    @Override
+    public void deleteDrug(Long id) {
+        Optional<Drug> drug = drugRepository.findById(id);
+        if(drug.isPresent()){
+            drugRepository.delete(drug.get());
+        }
+        else {
+            throw exceptionFactory.resourceNotFoundException(ErrorKey.Drug.NOT_FOUND_ERROR_CODE,MessageConst.RESOURCE_NOT_FOUND,
+                    MessageConst.Resources.DRUG , ErrorKey.Drug.ID);
+        }
+    }
+
 
     // tạo mã code cho thuốc
     public  String generateDrugCode(){

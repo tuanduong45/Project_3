@@ -50,7 +50,7 @@ public class SecurityConfig  {
                  .and()
                  .authorizeHttpRequests().requestMatchers("/drugGroup/**").permitAll()
                  .and()
-                 .authorizeHttpRequests().requestMatchers("/drug/**").permitAll()
+                 .authorizeHttpRequests().requestMatchers("/drug/**").authenticated()
                  .and()
                  .authorizeHttpRequests().requestMatchers("/swagger-ui/**").permitAll()
                  .anyRequest().permitAll()

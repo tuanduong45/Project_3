@@ -48,10 +48,10 @@ public class Drug {
     @Column(name = "registration_number")
     private String registrationNumber;
     // tương tác thuốc
-    @Column(name = "drug_interaction")
+    @Column(name = "drug_interaction",nullable = true)
     private String drugInteraction;
     // chống chỉ định
-    @Column(name = "contraindication")
+    @Column(name = "contraindication",nullable = true)
     private String contraindication;
     @Column(name = "price")
     private String price ;
