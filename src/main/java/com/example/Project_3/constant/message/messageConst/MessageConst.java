@@ -9,6 +9,8 @@ public class MessageConst {
 
         public static final String DRUG = "Drug";
 
+        public static final String UNIT = "Unit";
+
 
     }
 

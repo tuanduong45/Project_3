@@ -49,6 +49,17 @@ public class ErrorKey {
         // error key
         public static final String ID = "id";
 
+    }
+    public static class Unit {
+        public static final String NOT_FOUND_ERROR_CODE = "unit.error.not.found";
+        public static final String EXISTED_ERROR_CODE = "unit.error.existed";
 
+        public static final String DUPLICATED_ERROR_CODE = "unit.error.duplicated";
+
+        public static final String PERMISSION_DENIED_ERROR_CODE = "unit.error.permission.denied";
+
+        public static final String BAD_CREDENTIALS_ERROR_CODE = "unit.error.bad.credentials";
+        // error key
+        public static final String ID = "id" ;
     }
 }

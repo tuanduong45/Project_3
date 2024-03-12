@@ -9,5 +9,6 @@ public interface DrugService {
     void createDrug(DrugCreateDTO drugCreateDTO);
     void updateDrug(Long drugId,DrugUpdateDTO drugUpdateDTO);
     void deleteDrug(Long id);
+    void getList();
 
 }

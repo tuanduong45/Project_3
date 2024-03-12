@@ -53,6 +53,12 @@ public class Drug {
     // chống chỉ định
     @Column(name = "contraindication",nullable = true)
     private String contraindication;
+    // cách dùng
+    @Column(name = "usage")
+    private String usage;
+    // liều dùng
+    @Column(name = "dosage")
+    private String dosage;
     @Column(name = "price")
     private String price ;
     @ManyToOne(fetch = FetchType.EAGER)

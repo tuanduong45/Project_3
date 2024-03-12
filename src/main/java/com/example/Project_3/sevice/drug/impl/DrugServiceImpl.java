@@ -73,6 +73,11 @@ public class DrugServiceImpl implements DrugService {
         }
     }
 
+    @Override
+    public void getList() {
+
+    }
+
 
     // tạo mã code cho thuốc
     public  String generateDrugCode(){

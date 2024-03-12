@@ -23,9 +23,13 @@ public class DrugController {
     public void updateDrug(@RequestParam("id" ) Long id , @RequestBody DrugUpdateDTO drugUpdateDTO){
         drugService.updateDrug(id,drugUpdateDTO);
     }
-    @DeleteMapping("delete")
+    @DeleteMapping("/delete")
     public void deleteDrug(@RequestParam("id") Long id){
         drugService.deleteDrug(id);
+    }
+    @GetMapping("/getList")
+    public void getListDrug(){
+
     }
 
 
