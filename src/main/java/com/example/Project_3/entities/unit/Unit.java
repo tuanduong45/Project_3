@@ -41,7 +41,7 @@ public class Unit {
     private Date createAt;
     @Column(name = "last_update_date")
     private Date updateDate;
-    @OneToMany(fetch = FetchType.EAGER,mappedBy = "unit")
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "unit")
     private Set<Drug> drugSet = new HashSet<>();
 
 }

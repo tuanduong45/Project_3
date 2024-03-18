@@ -67,7 +67,7 @@ public class Drug {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "drug_group_id" , insertable = true,updatable = true)
     private DrugGroup drugGroup ;
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "drug-supplier",
     joinColumns = {
             @JoinColumn(name = "drug_id",referencedColumnName = "id")
@@ -77,7 +77,7 @@ public class Drug {
     })
 
     private Set<Supplier> supplierSet = new HashSet<>();
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "request_receipt_drug" ,
     joinColumns = {
             @JoinColumn(name = "drug_id" , referencedColumnName = "id" )
@@ -86,7 +86,7 @@ public class Drug {
             @JoinColumn(name = "request_receipt_id" , referencedColumnName = "id")
             })
     private Set<RequestReceipt> requestReceipts = new HashSet<>();
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "drug_import_receipt" ,
     joinColumns = {
             @JoinColumn (name = "drug_id" , referencedColumnName = "id")

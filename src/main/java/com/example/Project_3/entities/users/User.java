@@ -55,7 +55,7 @@ public class User implements UserDetails {
             @JoinColumn(name = "role_id",referencedColumnName = "id")
     })
     private Set<Role> roles = new HashSet<>();
-    @OneToMany(fetch = FetchType.EAGER,mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "user")
     private Set<ImportReceipt> importReceipts = new HashSet<>() ;
 
 

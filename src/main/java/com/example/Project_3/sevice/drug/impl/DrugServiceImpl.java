@@ -3,7 +3,9 @@ package com.example.Project_3.sevice.drug.impl;
 import com.example.Project_3.constant.message.errorKey.ErrorKey;
 import com.example.Project_3.constant.message.messageConst.MessageConst;
 import com.example.Project_3.dtos.drug.DrugCreateDTO;
+import com.example.Project_3.dtos.drug.DrugListDTO;
 import com.example.Project_3.dtos.drug.DrugUpdateDTO;
+import com.example.Project_3.dtos.drug.IGetListDrug;
 import com.example.Project_3.entities.drug.Drug;
 import com.example.Project_3.entities.drugGroup.DrugGroup;
 import com.example.Project_3.entities.unit.Unit;
@@ -17,8 +19,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 
 @Service
 public class DrugServiceImpl implements DrugService {
@@ -74,8 +75,24 @@ public class DrugServiceImpl implements DrugService {
     }
 
     @Override
-    public void getList() {
-
+    public List<Map<String, List<DrugListDTO>>> getList(Long drugGroupId,String name) {
+        List<Map<String,List<DrugListDTO>>> mapList = new ArrayList<>();
+        List<IGetListDrug> drugs = drugRepository.getListDrug(drugGroupId,name);
+        List<String> drugGroupName = drugGroupRepository.getListDrugGroupName(drugGroupId);
+        for(String drugGrName : drugGroupName){
+            List<DrugListDTO> drugListDTOS = new ArrayList<>();
+            for(IGetListDrug drug : drugs){
+                if(drug.getDrugGroupName().equals(drugGrName)){
+                    DrugListDTO drugListDTO = new DrugListDTO();
+                    BeanUtils.copyProperties(drug,drugListDTO);
+                    drugListDTOS.add(drugListDTO);
+                }
+            }
+            Map<String,List<DrugListDTO>> map = new HashMap<>();
+            map.put(drugGrName,drugListDTOS);
+            mapList.add(map);
+        }
+        return mapList;
     }
 
 
