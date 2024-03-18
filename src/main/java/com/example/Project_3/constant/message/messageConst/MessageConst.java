@@ -11,6 +11,8 @@ public class MessageConst {
 
         public static final String UNIT = "Unit";
 
+        public static final String SUPPLIER = "Supplier";
+
 
     }
 
