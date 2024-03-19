@@ -22,23 +22,25 @@ public class ImportReceipt {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id ;
-    @Column(name = "product_name")
-    private String productName ;
-    @Column(name = "product_company")
-    private String productCompany;
-    @Column(name = "produce_batch_number")
-    private String produceBatchNumber;
+    // mã code đơn nhập
+    @Column(name = "import_receipt_code")
+    private String importReceiptCode ;
+    // tên người nhập
+    @Column(name = "import_person_name")
+    private String importPerName;
     @Column(name = "import_date")
+    // ngày nhập
     private Date importDate;
-    @Column(name = "total_amount")
-    private String totalAmount;
+    // trạng thái
+    @Column(name = "status")
+    private String status;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id" , insertable = false , updatable = false)
     private User user ;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "supplier_id", insertable = false , updatable = false)
     private Supplier supplier;
-    @ManyToMany(fetch = FetchType.EAGER,mappedBy = "importReceipts")
+    @ManyToMany(fetch = FetchType.LAZY,mappedBy = "importReceipts")
     private Set<Drug> drugs = new HashSet<>() ;
 
 }

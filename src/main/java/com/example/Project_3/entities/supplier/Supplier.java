@@ -1,6 +1,7 @@
 package com.example.Project_3.entities.supplier;
 
 import com.example.Project_3.entities.drug.Drug;
+import com.example.Project_3.entities.drug.DrugImportReceipt;
 import com.example.Project_3.entities.importReceipt.ImportReceipt;
 import jakarta.persistence.*;
 import lombok.*;
@@ -34,6 +35,6 @@ public class Supplier {
     private String representativeName;
     @ManyToMany(fetch = FetchType.EAGER,mappedBy = "supplierSet")
     private Set<Drug> drugSet = new HashSet<>();
-    @OneToMany(fetch = FetchType.EAGER,mappedBy = "supplier")
-    private Set<ImportReceipt> importReceipts = new HashSet<>() ;
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "supplier")
+    private Set<DrugImportReceipt> drugImportReceipts = new HashSet<>() ;
 }
