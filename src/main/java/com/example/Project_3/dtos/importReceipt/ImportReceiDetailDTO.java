@@ -9,14 +9,22 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 import java.util.Date;
-import java.util.List;
-import java.util.Set;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ImportReceiptDTO {
-    Set<ImportReceiDetailDTO> importReceiDetailDTOS ;
+public class ImportReceiDetailDTO {
+    @NotNull
+    Long drugId;
+    @NotNull
+    String produceBatchNumber;
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "dd-mm-yyyy")
+    Date expiryDate;
+    @NotNull
+    Long quantity;
+    Long unitId ;
+    Long price;
+    Long supplierId;
 
 }
