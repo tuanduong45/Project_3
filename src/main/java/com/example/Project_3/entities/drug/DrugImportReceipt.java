@@ -1,6 +1,7 @@
 package com.example.Project_3.entities.drug;
 
 import com.example.Project_3.entities.supplier.Supplier;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -31,9 +32,10 @@ public class DrugImportReceipt {
     private Long price;
     // ngày hết hạn
     @Column(name = "expiry_date")
+    @JsonFormat(pattern = "dd-mm-yyyy")
     private Date expiryDate;
     // số lô sản xuất
-    @Column(name = "produce_batch_number")
+    @Column(name = "produce_batch_number",unique = true)
     private String produceBatchNumber;
     // tổng tiền
     @Column(name = "total_amount")
@@ -47,7 +49,7 @@ public class DrugImportReceipt {
 
 
     public DrugImportReceipt(Long importReceiptID, Long drugId, Long quantity, Long unitId,
-                             Long price, Date expiryDate, String produceBatchNumber, Supplier supplier) {
+                             Long price, Date expiryDate, String produceBatchNumber, Supplier supplier,Long totalAmount) {
         this.importReceiptId = importReceiptID ;
         this.drugId = drugId ;
         this.quantity = quantity;
@@ -56,6 +58,7 @@ public class DrugImportReceipt {
         this.expiryDate = expiryDate;
         this.produceBatchNumber = produceBatchNumber;
         this.supplier =supplier;
+        this.totalAmount = totalAmount;
 
     }
 }

@@ -96,7 +96,5 @@ public class Drug {
     })
     private Set<ImportReceipt> importReceipts = new HashSet<>() ;
 
-
-
     }
 

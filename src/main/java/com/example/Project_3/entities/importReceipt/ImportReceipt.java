@@ -3,6 +3,7 @@ package com.example.Project_3.entities.importReceipt;
 import com.example.Project_3.entities.drug.Drug;
 import com.example.Project_3.entities.supplier.Supplier;
 import com.example.Project_3.entities.users.User;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,6 +30,7 @@ public class ImportReceipt {
     @Column(name = "import_person_name")
     private String importPerName;
     @Column(name = "import_date")
+    @JsonFormat(pattern = "mm-dd-YYY")
     // ngày nhập
     private Date importDate;
     // trạng thái

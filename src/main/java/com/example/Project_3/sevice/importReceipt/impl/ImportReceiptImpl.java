@@ -37,7 +37,7 @@ public class ImportReceiptImpl implements ImportReceiptService {
         List<DrugImportReceipt> drugImportReceipts = importReceiptDTO.getImportReceiDetailDTOS().stream().map(
                 value->new DrugImportReceipt(importReceiptID, value.getDrugId(), value.getQuantity(),
                         value.getUnitId(), value.getPrice(), value.getExpiryDate(), value.getProduceBatchNumber(),
-                        supplierRepository.findById(value.getSupplierId()).get())
+                        supplierRepository.findById(value.getSupplierId()).get(), value.getPrice() * value.getQuantity())
         ).toList();
         drugImportReRepo.saveAll(drugImportReceipts);
 
