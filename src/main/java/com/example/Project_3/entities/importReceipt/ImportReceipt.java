@@ -26,11 +26,11 @@ public class ImportReceipt {
     // mã code đơn nhập
     @Column(name = "import_receipt_code")
     private String importReceiptCode ;
-    // tên người nhập
+    // tên người tạo đơn
     @Column(name = "import_person_name")
-    private String importPerName;
+    private String importPersonName;
     @Column(name = "import_date")
-    @JsonFormat(pattern = "mm-dd-YYY")
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd")
     // ngày nhập
     private Date importDate;
     // trạng thái

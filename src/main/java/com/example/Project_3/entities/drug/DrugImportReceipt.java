@@ -8,8 +8,7 @@ import lombok.*;
 import java.util.Date;
 
 @Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "drug_import_receipt")
@@ -32,7 +31,7 @@ public class DrugImportReceipt {
     private Long price;
     // ngày hết hạn
     @Column(name = "expiry_date")
-    @JsonFormat(pattern = "dd-mm-yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "dd-mm-yyyy")
     private Date expiryDate;
     // số lô sản xuất
     @Column(name = "produce_batch_number",unique = true)

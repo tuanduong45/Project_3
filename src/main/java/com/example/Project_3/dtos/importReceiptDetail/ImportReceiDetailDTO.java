@@ -1,4 +1,4 @@
-package com.example.Project_3.dtos.importReceipt;
+package com.example.Project_3.dtos.importReceiptDetail;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotNull;
@@ -14,6 +14,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+// DTO của chi tiết hóa đơn nhập khi thêm
 public class ImportReceiDetailDTO {
     @NotNull
     Long drugId;
