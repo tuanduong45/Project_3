@@ -2,6 +2,7 @@ package com.example.Project_3.entities.users;
 
 import com.example.Project_3.entities.department.Department;
 import com.example.Project_3.entities.importReceipt.ImportReceipt;
+import com.example.Project_3.entities.requestReceipt.RequestReceipt;
 import com.example.Project_3.entities.role.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -57,6 +58,9 @@ public class User implements UserDetails {
     private Set<Role> roles = new HashSet<>();
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "user")
     private Set<ImportReceipt> importReceipts = new HashSet<>() ;
+
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "user")
+    private Set<RequestReceipt> requestReceipts = new HashSet<>();
 
 
     @Override

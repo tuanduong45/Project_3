@@ -36,6 +36,4 @@ public class Department {
      private String email;
      @OneToMany(fetch = FetchType.EAGER,mappedBy = "department")
      private Set<User> users = new HashSet<>();
-     @ManyToMany(mappedBy = "departments")
-     private  Set<RequestReceipt> requestReceipts = new HashSet<>();
 }

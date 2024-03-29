@@ -21,5 +21,12 @@ public class DrugRequestReceipt {
     @Column(name = "quantity")
     private Long quantity ;
     @Column(name = "unit")
-    private String unit ;
+    private Long unitID ;
+
+    public DrugRequestReceipt(Long drugID, Long requestReceiptID, Long quantity, Long unitID) {
+        this.drugId = drugID;
+        this.quantity = quantity ;
+        this.unitID = unitID;
+        this.requestReceiptId =requestReceiptID;
+    }
 }

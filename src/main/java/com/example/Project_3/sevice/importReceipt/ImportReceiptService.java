@@ -14,7 +14,10 @@ public interface ImportReceiptService {
     // thêm hóa đơn nhập bao gồm danh sách chi tiết hóa đơn
     void createImportReceipt(ImportReceiptDTO importReceiptDTO);
     // lấy ra danh sách bao gồm cả hóa đơn nhập và danh sách chi tiết hóa đơn ứng với mỗi hóa đơn nhập
-    List<Map<ImportReceiptListDTO,List<ImportReceiptDetailLstDTO>>> getListImportReceipt (String code, Date date, String status) ;
+    List<Map<ImportReceiptListDTO,List<ImportReceiptDetailLstDTO>>> getListImportReceipt (String code,
+                                                                                          Date date,
+                                                                                          String status);
+
 
 
 

@@ -1,8 +1,10 @@
 package com.example.Project_3.repositories.importReceipt;
 
 import com.example.Project_3.constant.sql.importReceipt.SQLImportReceipt;
+import com.example.Project_3.constant.sql.requestReceipt.SQLRequestReceipt;
 import com.example.Project_3.dtos.importReceipt.IGetListImportReceipt;
 import com.example.Project_3.dtos.importReceipt.IGetLstImportReceiptALL;
+import com.example.Project_3.dtos.requestReceipt.getList.IGetRequestReceiptListCode;
 import com.example.Project_3.entities.importReceipt.ImportReceipt;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
