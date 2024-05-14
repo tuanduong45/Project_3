@@ -10,7 +10,7 @@ import java.util.Objects;
 @AllArgsConstructor
 public enum IdentityTypeEnum {
 
-    ID_CARD("Chứng minh thư nhân dân",1),
+    ID_CARD("Chứng minh nhân dân",1),
     CITIZEN_ID_CARD("Căn cước công dân",2),
     PASSPORT( "Hộ chiếu",3);
 
@@ -23,7 +23,7 @@ public enum IdentityTypeEnum {
 
     public int getValueFromTypeName(String typeName){
         return switch (typeName) {
-            case "Chứng minh thư nhân dân" -> 1;
+            case "Chứng minh nhân dân" -> 1;
             case "Căn cước công dân" -> 2;
             case "Hộ chiếu" -> 3;
             default -> 0;

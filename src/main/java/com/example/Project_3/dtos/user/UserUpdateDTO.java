@@ -19,7 +19,7 @@ import java.util.Set;
 @Builder
 public class UserUpdateDTO {
     private String identificationNumber;
-    private IdentityTypeEnum identityTypeName;
+    private String identityTypeName;
     @NotNull
     private String firstName;
     @NotBlank
@@ -29,7 +29,7 @@ public class UserUpdateDTO {
     @NotNull
     private String phoneNumber;
     private String email;
-    Set<Long> lstRoleId = new HashSet<>();
+    private Set<Long> lstRoleId = new HashSet<>();
     @NotNull
     private Long departmentID;
 

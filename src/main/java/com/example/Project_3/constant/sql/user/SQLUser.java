@@ -5,9 +5,9 @@ public class SQLUser {
             "SELECT DISTINCT u.\"id\" as id , u.code , concat(u.first_name , ' ', u.last_name ) as name, " +
                     "u.birth_date AS birthDate ,u.phone_number AS phoneNumber,u.email , \n" +
                     "CASE \n" +
-                    "\tWHEN u.identity_type = 0 THEN 'Chứng minh nhân dân'\n" +
-                    "\tWHEN u.identity_type = 1 THEN 'Căn cước công dân'\n" +
-                    "\tWHEN u.identity_type = 2 THEN 'Hộ chiếu'\n" +
+                    "\tWHEN u.identity_type = 1 THEN 'Chứng minh nhân dân'\n" +
+                    "\tWHEN u.identity_type = 2 THEN 'Căn cước công dân'\n" +
+                    "\tWHEN u.identity_type = 3 THEN 'Hộ chiếu'\n" +
                     "\tELSE ''\n" +
                     "END AS identityType,\n" +
                     "u.identification_number as identificationNumber\n" +

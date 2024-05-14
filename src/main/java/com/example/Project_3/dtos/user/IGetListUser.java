@@ -15,5 +15,4 @@ public interface IGetListUser {
     String getIdentityType();
     String getIdentificationNumber();
     String getDepartmentName();
-    String getRoleName();
 }

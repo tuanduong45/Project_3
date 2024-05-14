@@ -7,10 +7,13 @@ import com.example.Project_3.dtos.user.IGetListUser;
 import com.example.Project_3.dtos.user.UserCreateDTO;
 import com.example.Project_3.dtos.user.UserUpdateDTO;
 import com.example.Project_3.entities.department.Department;
+import com.example.Project_3.entities.importReceipt.ImportReceipt;
+import com.example.Project_3.entities.requestReceipt.RequestReceipt;
 import com.example.Project_3.entities.role.Role;
 import com.example.Project_3.entities.users.User;
 import com.example.Project_3.entities.users.UserRole;
 import com.example.Project_3.enums.identityType.IdentityTypeEnum;
+import com.example.Project_3.enums.user.UserStatusEnum;
 import com.example.Project_3.exceptions.exceptionFactory.ExceptionFactory;
 import com.example.Project_3.repositories.department.DepartmentRepository;
 import com.example.Project_3.repositories.role.RoleRepository;
@@ -19,17 +22,16 @@ import com.example.Project_3.repositories.userRole.UserRoleRepository;
 import com.example.Project_3.sevice.user.UserService;
 
 import com.example.Project_3.utils.auth.StringUtils;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
 @Service
-@Transactional
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
@@ -80,6 +82,7 @@ public class UserServiceImpl implements UserService {
         }
         Optional<Department> department = departmentRepository.findById(userCreateDTO.getDepartmentID());
         user.setDepartment(department.get());
+        user.setStatus(UserStatusEnum.ACTIVE.getStatus());
         generateUserNamePassword(user);
         Long userId = userRepository.save(user).getId();
         List<UserRole> lstUserRole = userCreateDTO.getLstRoleId().stream().map(roleId -> new UserRole(userId, roleId)).toList();
@@ -131,6 +134,12 @@ public class UserServiceImpl implements UserService {
         // cập nhật department
         Optional<Department> department = departmentRepository.findById(updateDTO.getDepartmentID());
         user.get().setDepartment(department.get());
+        // cập nhật identityType
+        IdentityTypeEnum identityTypeEnum = IdentityTypeEnum.typeOf(updateDTO.getIdentityTypeName());
+        if(identityTypeEnum != null){
+            int value = identityTypeEnum.getValue();
+            user.get().setIdentityType(value);
+        }
         userRepository.save(user.get());
 
         // cập nhật user role
@@ -143,7 +152,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(Long id) {
         Optional<User> user = userRepository.findById(id);
-        userRepository.delete(user.get());
+        if(user.isPresent()){
+            for(RequestReceipt requestReceipt : user.get().getRequestReceipts()){
+                requestReceipt.setUser(null);
+            }
+            user.get().getRequestReceipts().clear();
+            for(ImportReceipt importReceipt : user.get().getImportReceipts()){
+                importReceipt.setUser(null);
+            }
+            user.get().getImportReceipts().clear();
+            userRepository.deleteById(user.get().getId());
+        }
     }
 
     @Override
@@ -151,6 +170,12 @@ public class UserServiceImpl implements UserService {
                                           String email, Long departmentId, Long roleId) {
 
         return userRepository.getListUser(code,name,phoneNumber,email,departmentId,roleId);
+
+    }
+
+    @Override
+    public void switchUserStatus(Long userId, UserStatusEnum status) {
+        userRepository.switchUserStatus(userId,status.getStatus());
 
     }
 

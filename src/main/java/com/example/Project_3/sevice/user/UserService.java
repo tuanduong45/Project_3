@@ -4,6 +4,7 @@ import com.example.Project_3.dtos.user.IGetListUser;
 import com.example.Project_3.dtos.user.UserCreateDTO;
 import com.example.Project_3.dtos.user.UserUpdateDTO;
 import com.example.Project_3.entities.users.User;
+import com.example.Project_3.enums.user.UserStatusEnum;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -24,5 +25,9 @@ public interface UserService {
     void deleteUser(Long id);
     List<IGetListUser> getListUser( String code , String name, String phoneNumber,
                                    String email, Long departmentId , Long roleId);
+
+    void switchUserStatus(Long userId, UserStatusEnum status);
+
+    
 
 }

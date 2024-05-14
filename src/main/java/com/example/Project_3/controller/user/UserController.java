@@ -3,6 +3,7 @@ package com.example.Project_3.controller.user;
 import com.example.Project_3.dtos.user.IGetListUser;
 import com.example.Project_3.dtos.user.UserCreateDTO;
 import com.example.Project_3.dtos.user.UserUpdateDTO;
+import com.example.Project_3.enums.user.UserStatusEnum;
 import com.example.Project_3.sevice.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -47,6 +48,12 @@ public class UserController {
             @RequestParam(name = "departmentId" , required = false , defaultValue = "-1") Long departmentId ,
             @RequestParam(name = "roleId",required = false , defaultValue = "-1") Long roleId ){
         return userService.getListUser(code,name,phoneNumber,email,departmentId,roleId);
+    }
+    @PutMapping("/switch-status")
+    @PreAuthorize("hasAuthority('ROLE_DEPARTMENT_MANAGER') " +
+            "or hasAuthority('ROLE_HOSPITAL_MANAGER') or hasAuthority('ROLE_DEPARTMENT_PHARMACY_MANAGER')")
+    public void switchUserStatus(@RequestParam(name = "id") Long userId , @RequestParam(name = "status")UserStatusEnum statusEnum) {
+        userService.switchUserStatus(userId,statusEnum);
     }
 
 }

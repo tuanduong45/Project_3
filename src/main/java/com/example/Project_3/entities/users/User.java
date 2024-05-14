@@ -44,6 +44,8 @@ public class User implements UserDetails {
     private String userName ;
     @Column(name = "password")
     private String password;
+    @Column(name = "status")
+    private Integer status;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "department_id",insertable = true , updatable = true)
     private Department department;
