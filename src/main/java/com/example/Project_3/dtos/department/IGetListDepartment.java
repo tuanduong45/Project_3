@@ -6,4 +6,5 @@ public interface IGetListDepartment {
     String getName();
     String getEmail();
     String getPhoneNumber();
+    String getAddress();
 }

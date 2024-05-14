@@ -20,7 +20,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RegexRequestMatcher;
 import org.springframework.stereotype.Component;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.CorsUtils;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.util.Arrays;
 
 
 @Component
@@ -39,7 +45,7 @@ public class SecurityConfig  {
 
      @Bean
      public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-         http.csrf().disable()
+         http.csrf().disable().cors().and()
                  .authorizeHttpRequests().requestMatchers("/auth/**").permitAll()
                  .and()
                  .authorizeHttpRequests().requestMatchers("/department/**").authenticated()
@@ -53,6 +59,7 @@ public class SecurityConfig  {
                  .authorizeHttpRequests().requestMatchers("/drug/**").authenticated()
                  .and()
                  .authorizeHttpRequests().requestMatchers("/swagger-ui/**").permitAll()
+                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                  .anyRequest().permitAll()
                  .and()
                  .exceptionHandling()
@@ -65,4 +72,17 @@ public class SecurityConfig  {
          return http.build();
      }
 
+   /* @Bean
+    CorsConfigurationSource corsConfigurationSource()
+    {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token"));
+        configuration.setExposedHeaders(Arrays.asList("x-auth-token"));
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+ */
 }

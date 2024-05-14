@@ -10,6 +10,7 @@ import com.example.Project_3.entities.department.Department;
 import com.example.Project_3.entities.role.Role;
 import com.example.Project_3.entities.users.User;
 import com.example.Project_3.entities.users.UserRole;
+import com.example.Project_3.enums.identityType.IdentityTypeEnum;
 import com.example.Project_3.exceptions.exceptionFactory.ExceptionFactory;
 import com.example.Project_3.repositories.department.DepartmentRepository;
 import com.example.Project_3.repositories.role.RoleRepository;
@@ -17,10 +18,12 @@ import com.example.Project_3.repositories.user.UserRepository;
 import com.example.Project_3.repositories.userRole.UserRoleRepository;
 import com.example.Project_3.sevice.user.UserService;
 
+import com.example.Project_3.utils.auth.StringUtils;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -38,6 +41,9 @@ public class UserServiceImpl implements UserService {
     private ExceptionFactory exceptionFactory ;
     @Autowired
     private UserRoleRepository userRoleRepository ;
+
+    @Autowired
+    private  PasswordEncoder passwordEncoder;
     private final Set<Role> roleSet = new HashSet<>();
 
     @Override
@@ -67,9 +73,14 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         BeanUtils.copyProperties(userCreateDTO,user);
         user.setCode(generateUserCode());
-        user.setIdentityType(userCreateDTO.getIdentityTypeName().getValue());
+        IdentityTypeEnum identityTypeEnum = IdentityTypeEnum.typeOf(userCreateDTO.getIdentityTypeName());
+        if(identityTypeEnum != null){
+            int value = identityTypeEnum.getValue();
+            user.setIdentityType(value);
+        }
         Optional<Department> department = departmentRepository.findById(userCreateDTO.getDepartmentID());
         user.setDepartment(department.get());
+        generateUserNamePassword(user);
         Long userId = userRepository.save(user).getId();
         List<UserRole> lstUserRole = userCreateDTO.getLstRoleId().stream().map(roleId -> new UserRole(userId, roleId)).toList();
         userRoleRepository.saveAll(lstUserRole);
@@ -85,6 +96,25 @@ public class UserServiceImpl implements UserService {
             generatedCode = baseCode + (random.nextInt(100000) + 100000);
         }
         return generatedCode;
+
+    }
+
+    public void generateUserNamePassword(User user){
+        StringBuilder userNameBuilder = new StringBuilder();
+        String firstName = user.getFirstName();
+        String lastName = user.getLastName();
+        String[] firstNameArr = firstName.split(" ");
+        if(firstNameArr.length > 0) {
+           userNameBuilder.append(StringUtils.convertVietnameseToEng(lastName).toLowerCase());
+           for(int i = 0 ; i < firstNameArr.length  ; i++){
+               userNameBuilder.append(StringUtils.convertVietnameseToEng(firstNameArr[i]).toLowerCase().toLowerCase().charAt(0));
+           }
+        }
+        Integer userLikeExisted = userRepository.countByUserName(userNameBuilder.toString());
+        userNameBuilder.append(userLikeExisted == 0 ? "" : String.valueOf(userLikeExisted+1));
+        user.setUserName(userNameBuilder.toString());
+        String password =user.getUserName() + "@";
+        user.setPassword(passwordEncoder.encode(password));
 
     }
 

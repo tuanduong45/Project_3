@@ -18,8 +18,10 @@ public interface DepartmentRepository extends JpaRepository<Department , Long> {
 
 
     @Query(nativeQuery = true , value = SQLDepartment.GET_LIST_DEPARTMENT)
-    List<IGetListDepartment> getListDepartment(@Param("id") Long id ,@Param("code") String code,@Param("email") String email
-            ,@Param("name") String name, @Param("phoneNumber") String phoneNumber);
+    List<IGetListDepartment> getListDepartment(@Param("id") Long id ,@Param("code") String code,
+                                               @Param("email") String email,
+                                               @Param("name") String name,
+                                               @Param("phoneNumber") String phoneNumber);
 
 
     Boolean existsByCode(String code);

@@ -11,7 +11,8 @@ public class SQLUser {
                     "\tELSE ''\n" +
                     "END AS identityType,\n" +
                     "u.identification_number as identificationNumber\n" +
-                    " ,d.\"name\" AS departmentName, r.\"name\" as roleName\n" +
+                    " ,d.\"name\" AS departmentName" +
+                    //", r.\"name\" as roleName\n" +
                     "\n" +
                     " FROM \"users\" AS u \n" +
                     " LEFT JOIN department AS d ON  u.department_id = d.id \n" +

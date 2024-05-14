@@ -2,6 +2,7 @@ package com.example.Project_3.entities.drug;
 
 import com.example.Project_3.entities.drugGroup.DrugGroup;
 import com.example.Project_3.entities.importReceipt.ImportReceipt;
+import com.example.Project_3.entities.inventory.Inventory;
 import com.example.Project_3.entities.requestReceipt.RequestReceipt;
 import com.example.Project_3.entities.supplier.Supplier;
 import com.example.Project_3.entities.unit.Unit;
@@ -95,6 +96,9 @@ public class Drug {
             @JoinColumn(name = "import_receipt_id" , referencedColumnName = "id")
     })
     private Set<ImportReceipt> importReceipts = new HashSet<>() ;
+
+    @OneToMany(fetch = FetchType.LAZY , mappedBy = "drug")
+    private Set<Inventory> inventories = new HashSet<>();
 
     }
 

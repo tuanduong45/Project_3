@@ -24,7 +24,7 @@ public class UserCreateDTO {
     private String identificationNumber;
     @NotNull
     @NotBlank
-    private IdentityTypeEnum identityTypeName;
+    private String identityTypeName;
     @NotNull
     private String firstName;
     @NotBlank

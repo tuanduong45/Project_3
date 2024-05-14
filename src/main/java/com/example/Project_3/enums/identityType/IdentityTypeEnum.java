@@ -29,6 +29,15 @@ public enum IdentityTypeEnum {
             default -> 0;
         };
     }
+    public static IdentityTypeEnum typeOf(String value) {
+        if (Objects.isNull(value)) return null;
+        return switch (value) {
+            case "Chứng minh nhân dân" -> ID_CARD;
+            case "Căn cước công dân" -> CITIZEN_ID_CARD;
+            case "Hộ chiếu" -> PASSPORT;
+            default -> null;
+        };
+    }
 
 
 }

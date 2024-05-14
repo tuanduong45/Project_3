@@ -10,6 +10,7 @@ import com.example.Project_3.security.annotationAuthCustom.hospitalManager.isHos
 import com.example.Project_3.sevice.department.DepartmentService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.annotation.security.RolesAllowed;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,6 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/department")
+@CrossOrigin("*")
 public class DepartmentController {
     @Autowired
     private DepartmentService departmentService ;
@@ -30,7 +32,8 @@ public class DepartmentController {
             @RequestParam(name = "code" , required = false , defaultValue = "") String code,
             @RequestParam(name = "email" , required = false , defaultValue = "") String email,
             @RequestParam(name = "name" , required = false , defaultValue = "") String name ,
-            @RequestParam(name = "phone" , required = false , defaultValue = "") String phoneNumber){
+            @RequestParam(name = "phone" , required = false , defaultValue = "") String phoneNumber)
+    {
         return departmentService.getListDepartment(id ,code,email,name,phoneNumber);
     }
 
