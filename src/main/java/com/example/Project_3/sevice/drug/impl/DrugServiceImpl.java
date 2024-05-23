@@ -9,6 +9,7 @@ import com.example.Project_3.dtos.drug.IGetListDrug;
 import com.example.Project_3.entities.drug.Drug;
 import com.example.Project_3.entities.drugGroup.DrugGroup;
 import com.example.Project_3.entities.unit.Unit;
+import com.example.Project_3.enums.drug.DrugStatusEnum;
 import com.example.Project_3.enums.drugGroupStatus.DrugGroupStatus;
 import com.example.Project_3.exceptions.exceptionFactory.ExceptionFactory;
 import com.example.Project_3.repositories.drug.DrugRepository;
@@ -40,6 +41,7 @@ public class DrugServiceImpl implements DrugService {
         Optional<DrugGroup> drugGroup = drugGroupRepository.findById(drugCreateDTO.getDrugGroupId());
         drug.setDrugGroup(drugGroup.get());
         drugGroup.get().setStatus(DrugGroupStatus.ACTIVE.getValue());
+        drug.setStatus(DrugStatusEnum.ACTIVE.getStatus());
         drugRepository.save(drug);
         drugGroupRepository.save(drugGroup.get());
     }
@@ -50,10 +52,10 @@ public class DrugServiceImpl implements DrugService {
         if(drug.isPresent()){
 //            Optional<Unit> unit = unitRepository.findById(drugUpdateDTO.getUnitId());
 //            unit.ifPresent(value -> drug.get().setUnit(value));
-            Optional<DrugGroup> drugGroup = drugGroupRepository.findById(drugUpdateDTO.getDrugGroupId());
-            drugGroup.ifPresent(value -> drug.get().setDrugGroup(value) );
+           // Optional<DrugGroup> drugGroup = drugGroupRepository.findById(drugUpdateDTO.getDrugGroupId());
+           // drugGroup.ifPresent(value -> drug.get().setDrugGroup(value) );
             BeanUtils.copyProperties(drugUpdateDTO,drug.get());
-            drugGroupRepository.save(drugGroup.get());
+          //  drugGroupRepository.save(drugGroup.get());
             drugRepository.save(drug.get());
 //            unitRepository.save(unit.get());
         }else {
@@ -63,10 +65,10 @@ public class DrugServiceImpl implements DrugService {
     }
 
     @Override
-    public void deleteDrug(Long id) {
+    public void switchStatusDrug(Long id) {
         Optional<Drug> drug = drugRepository.findById(id);
         if(drug.isPresent()){
-            drugRepository.delete(drug.get());
+            drugRepository.switchDrugStatus(id);
         }
         else {
             throw exceptionFactory.resourceNotFoundException(ErrorKey.Drug.NOT_FOUND_ERROR_CODE,MessageConst.RESOURCE_NOT_FOUND,
@@ -94,6 +96,9 @@ public class DrugServiceImpl implements DrugService {
         }
         return mapList;
     }
+
+
+
 
 
     // tạo mã code cho thuốc

@@ -12,6 +12,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "drug_import_receipt")
+// chi tiết phiếu nhập kho thuốc
 public class DrugImportReceipt {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

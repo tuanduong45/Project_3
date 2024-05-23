@@ -15,7 +15,6 @@ public class SupplierCreateDTO {
     String address;
     String phoneNumber;
     String email;
-    String taxCode;
     String representativeName;
 
 }

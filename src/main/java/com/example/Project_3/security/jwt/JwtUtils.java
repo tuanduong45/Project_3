@@ -15,7 +15,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-
+import io.jsonwebtoken.Jwts;
 import java.security.Key;
 import java.util.*;
 import java.util.function.Function;
@@ -46,9 +46,9 @@ public class JwtUtils {
         return Keys.hmacShaKeyFor(keys);
     }
 
-    public Boolean isTokenValid(String token, UserDetails userDetails) {
+    public Boolean isTokenValid(String token, User user) {
         String username = extractUsername(token);
-        return username.equals(userDetails.getUsername()) /*&& !isTokenExpired(token) )*/;
+        return username.equals(user.getUsername()) /*&& !isTokenExpired(token) )*/;
 
     }
 

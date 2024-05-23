@@ -1,6 +1,8 @@
 package com.example.Project_3.controller.supplier;
 
+import com.example.Project_3.dtos.supplier.IGetListSupplier;
 import com.example.Project_3.dtos.supplier.SupplierCreateDTO;
+import com.example.Project_3.entities.supplier.Supplier;
 import com.example.Project_3.sevice.supplier.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -8,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/supplier")
+@RequestMapping("/api/supplier")
 public class SupplierController {
     @Autowired
     private SupplierService supplierService ;
@@ -23,14 +25,15 @@ public class SupplierController {
         supplierService.updateSupplier(id,supplierCreateDTO);
     }
 
-    @DeleteMapping("/delete")
-    public void deleteSupplier(@RequestParam("id") Long id){
-        supplierService.deleteSupplier(id);
+    @PutMapping("/delete")
+    public void switchSupplierStatus(@RequestParam("supplierId") Long id){
+        supplierService.switchSupplierStatus(id);
     }
 
-    @GetMapping("/getList")
-    public List<SupplierCreateDTO> getList(){
-        return supplierService.getListSupplier();
+    @GetMapping("/get-list")
+    public List<IGetListSupplier> getList(@RequestParam(value = "name" , required = false ,defaultValue = "") String name ,
+                                          @RequestParam(value = "taxCode", required = false , defaultValue = "") String taxCode){
+        return supplierService.getListSupplier(name,taxCode);
     }
 
 }

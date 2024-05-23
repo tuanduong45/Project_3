@@ -38,6 +38,12 @@ public class DrugCreateDTO {
     @NotNull
     @NotBlank
     private String contraindication;
+    @NotNull
+    @NotBlank
+    private String dosage ;
+    @NotNull
+    @NotBlank
+    private String usage;
     private String price;
     @NotNull
     private Long drugGroupId;

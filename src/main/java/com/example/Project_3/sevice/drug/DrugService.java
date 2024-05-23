@@ -13,7 +13,9 @@ import java.util.Map;
 public interface DrugService {
     void createDrug(DrugCreateDTO drugCreateDTO);
     void updateDrug(Long drugId,DrugUpdateDTO drugUpdateDTO);
-    void deleteDrug(Long id);
+    void switchStatusDrug(Long id);
     List<Map<String,List<DrugListDTO>>> getList(Long drugGroupId, String name);
+
+
 
 }

@@ -33,6 +33,8 @@ public class Supplier {
     private String taxCode;
     @Column(name = "representative_name")
     private String representativeName;
+    @Column(name = "status")
+    private Integer status;
     @ManyToMany(fetch = FetchType.EAGER,mappedBy = "supplierSet")
     private Set<Drug> drugSet = new HashSet<>();
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "supplier")

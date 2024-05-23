@@ -33,6 +33,7 @@ public class DrugGroupServiceImpl implements DrugGroupService {
     public void updateDrugGroup(Long id, DrugGroupUpdateDTO groupUpdateDTO) {
         Optional<DrugGroup> drugGroup = drugGroupRepository.findById(id);
         BeanUtils.copyProperties(groupUpdateDTO, drugGroup.get());
+        drugGroupRepository.save(drugGroup.get());
     }
 
     @Override
@@ -44,6 +45,17 @@ public class DrugGroupServiceImpl implements DrugGroupService {
     @Override
     public List<DrugGroup> getLstDrugGroup() {
        return drugGroupRepository.findAll();
+    }
+
+    @Override
+    public Long getIdFromDrugGroupName(String name) {
+        String id = drugGroupRepository.getIdFromDrugGroupName(name);
+        return Long.parseLong(id);
+    }
+
+    @Override
+    public String getDrugGroupDescribe(String name) {
+        return drugGroupRepository.getDrugGroupDescribeFromName(name);
     }
 
     public String generateCode() {

@@ -2,7 +2,6 @@ package com.example.Project_3.security.service;
 
 import com.example.Project_3.entities.users.User;
 import com.example.Project_3.repositories.user.UserRepository;
-import com.example.Project_3.security.models.CustomUserDetail;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,8 +20,7 @@ public class CustomUserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         try {
-            User user = userRepository.findByUserName(username).orElseThrow(() -> new UsernameNotFoundException(username));
-            return user;
+            return userRepository.findByUserName(username).orElseThrow(() -> new UsernameNotFoundException(username));
         } catch (Exception ex) {
             ex.printStackTrace();
             throw new RuntimeException("Load user by use name error");

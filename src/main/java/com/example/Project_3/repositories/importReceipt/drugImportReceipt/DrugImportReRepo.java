@@ -1,4 +1,4 @@
-package com.example.Project_3.repositories.drugImportReceipt;
+package com.example.Project_3.repositories.importReceipt.drugImportReceipt;
 
 import com.example.Project_3.entities.drug.DrugImportReceipt;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DrugGroupUpdateDTO {
 
-    private String drugGroupName;
+
 
     private String drugGroupDescribe;
 }

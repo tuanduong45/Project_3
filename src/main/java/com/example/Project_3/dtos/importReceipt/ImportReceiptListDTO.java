@@ -15,10 +15,11 @@ import java.util.Date;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 // DTO lấy dữ liệu của mỗi hóa đơn nhập không bao gồm chi tiết hóa đơn
 public class ImportReceiptListDTO {
+    Long id;
     String importReceiptCode;
-    String importPersonName;
+    String createdBy;
     @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd")
     Date importDate;
-    String status ;
+    String statusText ;
 
 }

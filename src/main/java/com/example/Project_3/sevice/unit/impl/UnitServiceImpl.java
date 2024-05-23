@@ -2,6 +2,7 @@ package com.example.Project_3.sevice.unit.impl;
 
 import com.example.Project_3.constant.message.errorKey.ErrorKey;
 import com.example.Project_3.constant.message.messageConst.MessageConst;
+import com.example.Project_3.dtos.unit.IGetCommonNameIdCvsRule;
 import com.example.Project_3.dtos.unit.UnitCreateDTO;
 import com.example.Project_3.dtos.unit.UnitUpdateDTO;
 import com.example.Project_3.entities.unit.Unit;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -41,6 +43,11 @@ public class UnitServiceImpl implements UnitService {
             throw exceptionFactory.resourceNotFoundException(ErrorKey.Unit.NOT_FOUND_ERROR_CODE, MessageConst.RESOURCE_NOT_FOUND,
                     MessageConst.Resources.UNIT,ErrorKey.Unit.ID);
         }
+    }
+
+    @Override
+    public List<IGetCommonNameIdCvsRule> getListUnit() {
+        return unitRepository.getListUnit();
     }
 
 

@@ -15,4 +15,10 @@ public interface DrugGroupRepository extends JpaRepository<DrugGroup,Long> {
 
     @Query(nativeQuery = true,value = SQLDrugGroup.GET_DRUG_GROUP_NAME_BY_ID)
     List<String> getListDrugGroupName(@Param("drugGroupId") Long drugGroupId);
+
+    @Query(nativeQuery = true , value = SQLDrugGroup.GET_ID_FROM_DRUG_GROUP_NAME)
+    String getIdFromDrugGroupName(@Param("drugGroupName") String name);
+
+    @Query(nativeQuery = true , value = SQLDrugGroup.GET_DRUG_GROUP_DESCRIBE_FROM_NAME)
+    String getDrugGroupDescribeFromName(@Param("drugGroupName") String name);
 }

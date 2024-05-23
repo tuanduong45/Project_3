@@ -1,13 +1,16 @@
 package com.example.Project_3.utils.auth;
 
 
+import com.example.Project_3.entities.users.User;
 import com.example.Project_3.enums.role.RoleEnum;
 
+import com.sun.security.auth.UserPrincipal;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -47,4 +50,26 @@ public class AuthUtils {
          }
 
      }
+     // get current user
+    public static User getCurrentUser() {
+        try {
+            System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+            return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        } catch (Exception ex) {
+            log.error("Get current user error");
+            return null;
+        }
+    }
+
+    // get current user id
+    public static Long getCurrentUserId() {
+        try {
+            User currentUser = getCurrentUser();
+            return Objects.nonNull(currentUser) ? currentUser.getId() : null;
+        } catch (Exception ex) {
+            log.error("Get current user id error");
+            return null;
+        }
+    }
+
 }

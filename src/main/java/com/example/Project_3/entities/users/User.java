@@ -19,7 +19,7 @@ import java.util.*;
 @Setter
 @Getter
 @Table(name = "users")
-public class User implements UserDetails {
+public class User implements UserDetails  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id" , unique = true , nullable = false)
@@ -107,5 +107,15 @@ public class User implements UserDetails {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", code='" + code + '\'' +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }

@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/role")
+@RequestMapping("/api/role")
 public class RoleController {
     @Autowired
     private RoleService roleService;
 
-    @GetMapping("/getRoleName")
-    public List<String> getRoleNameFromUserID (@RequestParam("userID") Long userID){
-        return roleService.getRoleNameFromUserID(userID);
+    @GetMapping("/get-role-name")
+    public List<String> getRoleNameFromUserID (@RequestParam("userID") Long userId){
+        return roleService.getRoleNameFromUserID(userId);
     }
 }

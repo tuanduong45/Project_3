@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/drugGroup")
+@RequestMapping("/api/drug-group")
 public class DrugGroupController {
     @Autowired
     private DrugGroupService drugGroupService ;
@@ -28,6 +28,21 @@ public class DrugGroupController {
     @GetMapping("/getList")
     public List<DrugGroup> getLstDrugGroup(){
      return drugGroupService.getLstDrugGroup();
+    }
+
+    @GetMapping("/get-id")
+    public Long getIdFromDrugGroupName (@RequestParam(name = "name") String name) {
+        return drugGroupService.getIdFromDrugGroupName(name);
+    }
+
+    @GetMapping("/get-drug-group-describe")
+    public String getDrugGroupDescribeFromName(@RequestParam(name = "name") String name) {
+        return drugGroupService.getDrugGroupDescribe(name);
+    }
+
+    @DeleteMapping("/delete")
+    public void deleteDrugGroup(@RequestParam("id") Long id){
+        drugGroupService.deleteDrugGroup(id);
     }
 
 }

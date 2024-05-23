@@ -1,18 +1,30 @@
 #spring:
+#Cấu hình datasource local
 #  datasource:
-#    driver-class-name: org.postgresql.Driver
+#   driver-class-name: org.postgresql.Driver
 #    url: jdbc:postgresql://localhost:5432/project_3
 #    username: postgres
 #    password: 10112001
-#
-#  # Cấu hình JPA
+
+ # Cấu hình JPA
 #  jpa:
-#    hibernate:
-#      ddl-auto: none
+#    generate-ddl: true
+#   hibernate:
+#      ddl-auto: update
 #    properties:
 #      hibernate:
-#        show_sql: true
-#        use_sql_comment: true
-#        format_sql: true
+#          show_sql: true
+#          dialect: org.hibernate.dialect.PostgreSQLDialect
+#          use_sql_comment: true
+#          format_sql: true
+
+# Cấu hình server
+#server:
+#  port: 8081
+#Cấu hình Jwt
+#jwt:
+#  secretKey: pu0cnKfubtWBm4l8BNdgo7XoznTQdFgjJ+A2yjfWSWWnkgKYRjN78g8Bx7AxKGRu
+#  duration: 3600
+
 
 

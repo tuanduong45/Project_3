@@ -14,6 +14,7 @@ import com.example.Project_3.sevice.auth.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -73,12 +74,17 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public JwtAuthenticationResponse login(LoginRequest loginRequest) {
-        Authentication authentication = new UsernamePasswordAuthenticationToken(loginRequest.getUserName(),
-                loginRequest.getPassword());
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        authenticationManager.authenticate(authentication);
-         User user = userRepository.findByUserName(loginRequest.getUserName())
-                 .orElseThrow(()->new UsernameNotFoundException("Username don't exist"));
+       /* Authentication authentication = new UsernamePasswordAuthenticationToken(loginRequest.getUserName(),
+                loginRequest.getPassword()); */
+         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUserName(),loginRequest.getPassword()));
+         SecurityContextHolder.getContext().setAuthentication(authentication);
+         User user = (User) authentication.getPrincipal();
+         if (user == null){
+             throw new BadCredentialsException("Username/password is incorrect");
+         }
+        /* User user = userRepository.findByUserName(loginRequest.getUserName())
+                 .orElseThrow(()->new UsernameNotFoundException("Username don't exist")); */
+
          String token = jwtUtils.generateJwt(user);
          String refreshToken = jwtUtils.generateRefreshToken(new HashMap<>() , user);
          Set<String> roles = user.getRoles().stream().map(Role::getCode).collect(Collectors.toSet());

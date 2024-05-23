@@ -62,6 +62,8 @@ public class Drug {
     private String dosage;
     @Column(name = "price")
     private String price ;
+    @Column(name = "status")
+    private Integer status;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "unit_id" , insertable = true , updatable = true)
     private Unit unit ;

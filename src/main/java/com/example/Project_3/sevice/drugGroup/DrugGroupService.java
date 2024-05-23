@@ -16,4 +16,13 @@ public interface DrugGroupService {
 
     List<DrugGroup> getLstDrugGroup();
 
+    // Lấy Id của drug Group từ name
+    Long getIdFromDrugGroupName(String name);
+
+    // lấy DrugGroupDescribe từ name
+
+    String getDrugGroupDescribe(String name);
+
+
+
 }

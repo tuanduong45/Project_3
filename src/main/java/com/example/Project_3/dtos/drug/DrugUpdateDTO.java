@@ -18,6 +18,6 @@ public class DrugUpdateDTO {
      String usage;
      String dosage;
      Long unitId;
-     Long drugGroupId;
+    // Long drugGroupId;
 
 }
