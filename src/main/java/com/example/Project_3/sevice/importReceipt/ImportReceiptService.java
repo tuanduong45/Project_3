@@ -15,19 +15,11 @@ import java.util.Map;
 public interface ImportReceiptService {
     // thêm hóa đơn nhập bao gồm danh sách chi tiết hóa đơn
     void createImportReceipt(ImportReceiptDTO importReceiptDTO);
-    // lấy ra danh sách bao gồm cả hóa đơn nhập và danh sách chi tiết hóa đơn ứng với mỗi hóa đơn nhập
-  /*  List<Map<ImportReceiptListDTO,List<ImportReceiptDetailLstDTO>>> getListImportReceipt (String code,
-                                                                                          Date date,
-                                                                                          String status);
 
-   */
-
+    // lấy danh sách hóa đơn nhập
     List<IGetLstImportReceipt> getLstImportReceipt(String code, Date startDate,Date endDate);
 
-    List<Map<ImportReceiptListDTO,List<IGetListImportReceiptDetail>>> getLstImportReceiptAll(String code ,
-                                                                                             Date startDate,
-                                                                                             Date endDate) ;
-
+    // lấy danh sách đơn thuốc theo id
     List<IGetListImportReceiptDetail> getListImportReceiptDetail(Long id);
 
 }

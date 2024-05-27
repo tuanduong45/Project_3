@@ -51,50 +51,14 @@ public class ImportReceiptImpl implements ImportReceiptService {
 
     }
 
-   /* @Override
-    public List<Map<ImportReceiptListDTO, List<ImportReceiptDetailLstDTO>>> getListImportReceipt(String code, Date date ,String status) {
-        List<Map<ImportReceiptListDTO,List<ImportReceiptDetailLstDTO>>> mapList = new ArrayList<>();
-        List<IGetLstImportReceiptALL> lstImportReceipts = importReceiptRepository.getListImportReceipt(code,date,status);
-        List<IGetListImportReceipt> stringList = importReceiptRepository.getListImportReceiptByCode();
-        for(IGetListImportReceipt codeImport : stringList){
-            Map<ImportReceiptListDTO,List<ImportReceiptDetailLstDTO>> map = new HashMap<>();
-            List<ImportReceiptDetailLstDTO> list = new ArrayList<>();
-            ImportReceiptListDTO importReceiptListDTO = new ImportReceiptListDTO();
-            BeanUtils.copyProperties(codeImport,importReceiptListDTO);
-            for(IGetLstImportReceiptALL importReceipt : lstImportReceipts){
-                if(importReceipt.getImportReceiptCode().equals(codeImport.getImportReceiptCode())){
-                    ImportReceiptDetailLstDTO detailLstDTO = new ImportReceiptDetailLstDTO();
-                    BeanUtils.copyProperties(importReceipt,detailLstDTO);
-                    list.add(detailLstDTO);
-                }
 
-            }
-            map.put(importReceiptListDTO,list);
-            mapList.add(map);
-        }
-        return  mapList;
-    }
-
-    */
 
     @Override
     public List<IGetLstImportReceipt> getLstImportReceipt(String code, Date startDate, Date endDate) {
         return importReceiptRepository.getLstImportReceipt(code,startDate,endDate);
     }
 
-    @Override
-    public List<Map<ImportReceiptListDTO, List<IGetListImportReceiptDetail>>> getLstImportReceiptAll(String code, Date startDate, Date endDate) {
-        List<Map<ImportReceiptListDTO,List<IGetListImportReceiptDetail>>> mapList = new ArrayList<>();
-        Map<ImportReceiptListDTO,List<IGetListImportReceiptDetail>> map = new HashMap<>();
-        for(IGetLstImportReceipt importReceipt : getLstImportReceipt(code,startDate,endDate)){
-            ImportReceiptListDTO importReceiptListDTO = new ImportReceiptListDTO();
-            BeanUtils.copyProperties(importReceipt,importReceiptListDTO);
-            List<IGetListImportReceiptDetail>  list = getListImportReceiptDetail(importReceipt.getId());
-            map.put(importReceiptListDTO,list);
-        }
-        mapList.add(map);
-        return mapList;
-    }
+
 
     @Override
     public List<IGetListImportReceiptDetail> getListImportReceiptDetail(Long id) {

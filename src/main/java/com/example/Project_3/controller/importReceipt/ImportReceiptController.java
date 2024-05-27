@@ -1,6 +1,7 @@
 package com.example.Project_3.controller.importReceipt;
 
 import com.example.Project_3.dtos.importReceipt.IGetLstImportReceipt;
+import com.example.Project_3.dtos.importReceipt.IGetLstImportReceiptALL;
 import com.example.Project_3.dtos.importReceipt.ImportReceiptDTO;
 
 import com.example.Project_3.dtos.importReceipt.ImportReceiptListDTO;
@@ -25,25 +26,20 @@ public class ImportReceiptController {
     public void createImportReceipt(@RequestBody ImportReceiptDTO importReceiptDTO){
         importReceiptService.createImportReceipt(importReceiptDTO);
     }
-   /* @GetMapping("/get-list")
-    public List<Map<ImportReceiptListDTO,List<ImportReceiptDetailLstDTO>>> getListImportReceipt(
-            @RequestParam(name = "code",defaultValue = "",required = false) String code,
-            @RequestParam(name = "date" , defaultValue = "1970-01-01", required = false)
-            @DateTimeFormat(pattern = "yyyy-MM-dd") Date date,
-            @RequestParam(name = "status",defaultValue = "",required = false) String status ) {
-        return importReceiptService.getListImportReceipt(code, date,status);
+
+
+
+    @GetMapping("/get-lst")
+    public List<IGetLstImportReceipt> getLstImportReceipts (@RequestParam(name = "code",defaultValue = "",required = false) String code ,
+                                                            @DateTimeFormat(pattern = "yyyy-MM-dd")
+                                                            @RequestParam(name = "startDate", defaultValue = "1970-01-01", required = false) Date startDate,
+                                                            @DateTimeFormat(pattern = "yyyy-MM-dd")
+                                                                @RequestParam(name = "endDate",defaultValue = "1970-01-01",required = false) Date endDate) {
+        return importReceiptService.getLstImportReceipt(code,startDate,endDate);
     }
-
-    */
-
-    @GetMapping("/get-list")
-    public List<Map<ImportReceiptListDTO,List<IGetListImportReceiptDetail>>> getLstImportReceipt (
-            @RequestParam(name = "code",defaultValue = "",required = false) String code ,
-            @DateTimeFormat(pattern = "yyyy-MM-dd")
-            @RequestParam(name = "startDate", defaultValue = "1970-01-01", required = false) Date startDate,
-            @DateTimeFormat(pattern = "yyyy-MM-dd")
-            @RequestParam(name = "endDate",defaultValue = "1970-01-01",required = false) Date endDate) {
-        return importReceiptService.getLstImportReceiptAll(code,startDate,endDate);
+    @GetMapping("/get-lst-detail")
+    public List<IGetListImportReceiptDetail> getListImportReceiptDetails(@RequestParam("id") Long importReceiptId){
+        return importReceiptService.getListImportReceiptDetail(importReceiptId);
     }
 
 
