@@ -20,4 +20,7 @@ public  class SQLDrug {
                     "WHERE (:drugGroupId = -1 OR d.drug_group_id = :drugGroupId) AND " +
                     "(:name = '' OR d.\"name\" ILIKE ('%' || :name || '%'))\n" +
                     "ORDER BY dg.drug_group_name ";
+
+    public static final String GET_LIST_DRUG_ID_CODE_NAME =
+            "SELECT d.id as id , d.code as code , d.\"name\" as name FROM drug as d ORDER BY id";
 }

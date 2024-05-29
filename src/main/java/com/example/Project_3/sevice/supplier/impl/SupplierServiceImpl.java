@@ -2,6 +2,7 @@ package com.example.Project_3.sevice.supplier.impl;
 
 import com.example.Project_3.constant.message.errorKey.ErrorKey;
 import com.example.Project_3.constant.message.messageConst.MessageConst;
+import com.example.Project_3.dtos.common.ICommonIdTaxCodeName;
 import com.example.Project_3.dtos.supplier.IGetListSupplier;
 import com.example.Project_3.dtos.supplier.SupplierCreateDTO;
 import com.example.Project_3.entities.supplier.Supplier;
@@ -58,6 +59,11 @@ public class SupplierServiceImpl implements SupplierService {
     @Override
     public List<IGetListSupplier> getListSupplier(String name , String taxCode) {
         return supplierRepository.getListSupplier(name,taxCode);
+    }
+
+    @Override
+    public List<ICommonIdTaxCodeName> getListSupplierIdTaxCodeName() {
+        return supplierRepository.getListSupplierIdTaxCodeName();
     }
 
 

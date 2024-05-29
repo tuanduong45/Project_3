@@ -7,7 +7,7 @@ import java.util.Date;
 public interface IGetLstImportReceipt {
     Long getId();
     String getImportReceiptCode();
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "dd/MM/yyyy",timezone = "Asia/Ho_Chi_Minh")
     Date getImportDate();
     String getCreatedBy();
     String getStatusText();

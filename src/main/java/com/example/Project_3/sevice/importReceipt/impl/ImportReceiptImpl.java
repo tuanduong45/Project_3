@@ -5,10 +5,13 @@ import com.example.Project_3.dtos.importReceiptDetail.IGetListImportReceiptDetai
 import com.example.Project_3.dtos.importReceiptDetail.ImportReceiptDetailLstDTO;
 import com.example.Project_3.entities.drug.DrugImportReceipt;
 import com.example.Project_3.entities.importReceipt.ImportReceipt;
+import com.example.Project_3.entities.inventory.Inventory;
 import com.example.Project_3.entities.users.User;
 import com.example.Project_3.enums.importReceiptStatus.ImportReceiptStatus;
+import com.example.Project_3.repositories.drug.DrugRepository;
 import com.example.Project_3.repositories.importReceipt.drugImportReceipt.DrugImportReRepo;
 import com.example.Project_3.repositories.importReceipt.ImportReceiptRepository;
+import com.example.Project_3.repositories.inventory.InventoryRepository;
 import com.example.Project_3.repositories.supplier.SupplierRepository;
 import com.example.Project_3.repositories.user.UserRepository;
 import com.example.Project_3.sevice.importReceipt.ImportReceiptService;
@@ -18,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ImportReceiptImpl implements ImportReceiptService {
@@ -29,6 +33,10 @@ public class ImportReceiptImpl implements ImportReceiptService {
     private UserRepository userRepository;
     @Autowired
     private SupplierRepository supplierRepository;
+    @Autowired
+    private DrugRepository drugRepository;
+    @Autowired
+    private InventoryRepository inventoryRepository ;
 
 
 
@@ -47,6 +55,12 @@ public class ImportReceiptImpl implements ImportReceiptService {
                         value.getUnitId(), value.getPrice(), value.getExpiryDate(), value.getProduceBatchNumber(),
                         supplierRepository.findById(value.getSupplierId()).get(), value.getPrice() * value.getQuantity())
         ).toList();
+        // lưu danh sách thuốc vào kho
+        List<Inventory> inventories =  importReceiptDTO.getImportReceiDetailDTOS().stream().map(value -> new Inventory(
+                value.getProduceBatchNumber(),value.getExpiryDate(),value.getQuantity(),
+                value.getPrice(),drugRepository.findById(value.getDrugId()).get()
+        )).toList();
+        inventoryRepository.saveAll(inventories);
         drugImportReRepo.saveAll(drugImportReceipts);
 
     }

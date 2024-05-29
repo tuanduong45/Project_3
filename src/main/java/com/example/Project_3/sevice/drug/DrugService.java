@@ -1,9 +1,7 @@
 package com.example.Project_3.sevice.drug;
 
-import com.example.Project_3.dtos.drug.DrugCreateDTO;
-import com.example.Project_3.dtos.drug.DrugListDTO;
-import com.example.Project_3.dtos.drug.DrugUpdateDTO;
-import com.example.Project_3.dtos.drug.IGetListDrug;
+import com.example.Project_3.dtos.common.ICommonIdCodeName;
+import com.example.Project_3.dtos.drug.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +13,8 @@ public interface DrugService {
     void updateDrug(Long drugId,DrugUpdateDTO drugUpdateDTO);
     void switchStatusDrug(Long id);
     List<Map<String,List<DrugListDTO>>> getList(Long drugGroupId, String name);
+
+    List<ICommonIdCodeName> getListDrugIdCodeName();
 
 
 

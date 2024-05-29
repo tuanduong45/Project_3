@@ -1,6 +1,7 @@
 package com.example.Project_3.repositories.supplier;
 
 import com.example.Project_3.constant.sql.supplier.SQLSupplier;
+import com.example.Project_3.dtos.common.ICommonIdTaxCodeName;
 import com.example.Project_3.dtos.supplier.IGetListSupplier;
 import com.example.Project_3.entities.supplier.Supplier;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,4 +23,8 @@ public interface SupplierRepository extends JpaRepository<Supplier,Long> {
     @Modifying
     @Query("UPDATE Supplier supplier SET supplier.status = 2 WHERE supplier.id = :supplierId")
     void switchSupplierStatus(@Param("supplierId") Long id);
+
+
+    @Query(nativeQuery = true,value = SQLSupplier.GET_LIST_ID_TAXCODE_NAME)
+    List<ICommonIdTaxCodeName> getListSupplierIdTaxCodeName();
 }

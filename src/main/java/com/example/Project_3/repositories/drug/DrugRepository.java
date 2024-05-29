@@ -1,6 +1,7 @@
 package com.example.Project_3.repositories.drug;
 
 import com.example.Project_3.constant.sql.drug.SQLDrug;
+import com.example.Project_3.dtos.common.ICommonIdCodeName;
 import com.example.Project_3.dtos.drug.IGetListDrug;
 import com.example.Project_3.entities.drug.Drug;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -24,4 +25,7 @@ public interface DrugRepository extends JpaRepository<Drug,Long> {
     @Modifying
     @Query(value = "UPDATE Drug drug SET drug.status = 1 WHERE drug.id = :drugId")
     void switchDrugStatus(@Param("drugId") Long id);
+
+    @Query(nativeQuery = true,value = SQLDrug.GET_LIST_DRUG_ID_CODE_NAME )
+    List<ICommonIdCodeName> getListDrugIdCodeName();
 }

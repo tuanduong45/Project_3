@@ -20,7 +20,8 @@ public class ImportReceiDetailDTO {
     Long drugId;
     @NotNull
     String produceBatchNumber;
-    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "dd-mm-yyyy")
+    @NotNull
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd")
     Date expiryDate;
     @NotNull
     Long quantity;

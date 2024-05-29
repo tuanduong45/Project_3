@@ -1,5 +1,6 @@
 package com.example.Project_3.controller.supplier;
 
+import com.example.Project_3.dtos.common.ICommonIdTaxCodeName;
 import com.example.Project_3.dtos.supplier.IGetListSupplier;
 import com.example.Project_3.dtos.supplier.SupplierCreateDTO;
 import com.example.Project_3.entities.supplier.Supplier;
@@ -34,6 +35,11 @@ public class SupplierController {
     public List<IGetListSupplier> getList(@RequestParam(value = "name" , required = false ,defaultValue = "") String name ,
                                           @RequestParam(value = "taxCode", required = false , defaultValue = "") String taxCode){
         return supplierService.getListSupplier(name,taxCode);
+    }
+
+    @GetMapping("/get-list-id-taxCode-name")
+    public List<ICommonIdTaxCodeName> getListSupplierIdTaxCodeName() {
+        return supplierService.getListSupplierIdTaxCodeName();
     }
 
 }

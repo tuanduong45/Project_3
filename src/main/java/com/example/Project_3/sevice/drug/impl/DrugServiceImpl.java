@@ -2,10 +2,8 @@ package com.example.Project_3.sevice.drug.impl;
 
 import com.example.Project_3.constant.message.errorKey.ErrorKey;
 import com.example.Project_3.constant.message.messageConst.MessageConst;
-import com.example.Project_3.dtos.drug.DrugCreateDTO;
-import com.example.Project_3.dtos.drug.DrugListDTO;
-import com.example.Project_3.dtos.drug.DrugUpdateDTO;
-import com.example.Project_3.dtos.drug.IGetListDrug;
+import com.example.Project_3.dtos.common.ICommonIdCodeName;
+import com.example.Project_3.dtos.drug.*;
 import com.example.Project_3.entities.drug.Drug;
 import com.example.Project_3.entities.drugGroup.DrugGroup;
 import com.example.Project_3.entities.unit.Unit;
@@ -97,8 +95,10 @@ public class DrugServiceImpl implements DrugService {
         return mapList;
     }
 
-
-
+    @Override
+    public List<ICommonIdCodeName> getListDrugIdCodeName() {
+        return drugRepository.getListDrugIdCodeName();
+    }
 
 
     // tạo mã code cho thuốc

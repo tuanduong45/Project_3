@@ -8,4 +8,8 @@ public class SQLSupplier {
                     "s.tax_code as taxCode FROM supplier as s \n" +
                     "WHERE (:name = '' or  s.\"name\" ILIKE ('%' || :name || '%') ) AND " +
                     " (:taxCode = '' or s.tax_code = :taxCode )";
+
+
+    public static final String GET_LIST_ID_TAXCODE_NAME =
+            "SELECT s.\"id\" as id, s.\"name\" as name , s.tax_code as taxCode FROM \"supplier\" as s ORDER BY id";
 }

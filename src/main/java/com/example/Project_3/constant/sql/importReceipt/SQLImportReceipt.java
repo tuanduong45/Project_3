@@ -3,7 +3,7 @@ package com.example.Project_3.constant.sql.importReceipt;
 public class SQLImportReceipt {
 
     public static final String GET_LST_IMPORT_RECEIPT =
-            "SELECT ir.id as id ,ir.import_receipt_code as importReceiptCode,CAST(ir.import_date AS DATE ) as importDate ,\n" +
+            "SELECT ir.id as id ,ir.import_receipt_code as importReceiptCode,CAST (ir.import_date as DATE ) as importDate ,\n" +
                     "concat(us.first_name , '',us.last_name) as createdBy , \n" +
                     "CASE \n" +
                     "\tWHEN ir.status = 1 THEN 'Đã xuất kho'\n" +
@@ -17,7 +17,7 @@ public class SQLImportReceipt {
                     " WHERE (:code = '' OR ir.import_receipt_code = :code)\t\n" +
                     " AND (:startDate = CAST ('1970-01-01' as DATE) OR CAST(ir.import_date AS DATE) >= :startDate) \n" +
                     " AND (:endDate = CAST ('1970-01-01' as DATE) OR CAST(ir.import_date AS DATE)  <= :endDate ) \n" +
-                    " ORDER BY id ";
+                    " ORDER BY import_date DESC ";
 
 
     public static final String GET_LST_IMPORT_RECEIPT_DETAIL =

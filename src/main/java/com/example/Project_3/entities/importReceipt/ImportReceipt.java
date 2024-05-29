@@ -26,11 +26,7 @@ public class ImportReceipt {
     // mã code đơn nhập
     @Column(name = "import_receipt_code")
     private String importReceiptCode ;
-    // tên người tạo đơn
-  //  @Column(name = "import_person_name")
-  //  private String importPersonName;
     @Column(name = "import_date")
-    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd")
     // ngày nhập
     private Date importDate;
     // trạng thái
@@ -39,9 +35,6 @@ public class ImportReceipt {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id" , insertable = true , updatable = false)
     private User user ;
-  /*  @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "supplier_id", insertable = false , updatable = false)
-    private Supplier supplier; */
     @ManyToMany(fetch = FetchType.LAZY,mappedBy = "importReceipts")
     private Set<Drug> drugs = new HashSet<>() ;
 

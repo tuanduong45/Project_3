@@ -1,5 +1,6 @@
 package com.example.Project_3.controller.drug;
 
+import com.example.Project_3.dtos.common.ICommonIdCodeName;
 import com.example.Project_3.dtos.drug.DrugCreateDTO;
 import com.example.Project_3.dtos.drug.DrugListDTO;
 import com.example.Project_3.dtos.drug.DrugUpdateDTO;
@@ -38,6 +39,11 @@ public class DrugController {
     public List<Map<String,List<DrugListDTO>>> getListDrug(@RequestParam(value = "drugGrId" , required = false , defaultValue = "-1") Long id
             , @RequestParam(value = "name" , required = false , defaultValue = "") String name){
      return   drugService.getList(id,name);
+    }
+
+    @GetMapping("/get-list-id-code-name")
+    public List<ICommonIdCodeName> getListDrugIdCodeName(){
+        return drugService.getListDrugIdCodeName();
     }
 
 
