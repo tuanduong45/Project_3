@@ -1,7 +1,7 @@
 package com.example.Project_3.dtos.importReceiptDetail;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.JoinColumn;
+
 
 import java.util.Date;
 

@@ -6,7 +6,7 @@ public class SQLImportReceipt {
             "SELECT ir.id as id ,ir.import_receipt_code as importReceiptCode,CAST (ir.import_date as DATE ) as importDate ,\n" +
                     "concat(us.first_name , '',us.last_name) as createdBy , \n" +
                     "CASE \n" +
-                    "\tWHEN ir.status = 1 THEN 'Đã xuất kho'\n" +
+                    "\tWHEN ir.status = 1 THEN 'Đã nhập kho'\n" +
                     "\tWHEN ir.status = 0 THEN 'Đã hủy'\n" +
                     "\tWHEN ir.status = -1 THEN 'Bản nháp'\n" +
                     "\tWHEN ir.status = 2 THEN 'Chờ xác nhận'\n" +
