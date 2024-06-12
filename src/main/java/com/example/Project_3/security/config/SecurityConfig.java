@@ -68,6 +68,7 @@ public class SecurityConfig  {
                  .and()
                  .authorizeHttpRequests().requestMatchers("/api/drug/**").authenticated()
                  .and().authorizeHttpRequests().requestMatchers("/api/import-receipt/**").authenticated()
+                 .and().authorizeHttpRequests().requestMatchers("/api/request-receipt/**").authenticated()
                  .and()
                  .authorizeHttpRequests().requestMatchers("/swagger-ui/**").permitAll()
                  .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()

@@ -1,12 +1,8 @@
 package com.example.Project_3.controller.importReceipt;
 
 import com.example.Project_3.dtos.importReceipt.IGetLstImportReceipt;
-import com.example.Project_3.dtos.importReceipt.IGetLstImportReceiptALL;
 import com.example.Project_3.dtos.importReceipt.ImportReceiptDTO;
-
-import com.example.Project_3.dtos.importReceipt.ImportReceiptListDTO;
 import com.example.Project_3.dtos.importReceiptDetail.IGetListImportReceiptDetail;
-import com.example.Project_3.dtos.importReceiptDetail.ImportReceiptDetailLstDTO;
 import com.example.Project_3.sevice.importReceipt.ImportReceiptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -14,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
+
 
 @RestController
 @RequestMapping("/api/import-receipt")

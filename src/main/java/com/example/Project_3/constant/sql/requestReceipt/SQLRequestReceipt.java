@@ -3,37 +3,38 @@ package com.example.Project_3.constant.sql.requestReceipt;
 public class SQLRequestReceipt {
 
     public static final String GET_LIST_REQUEST_RECEIPT =
-            "SELECT rr.request_receipt_code as requestReceiptCode , CAST(rr.request_date as DATE ) as requestDate \n" +
-                    ",concat(u.first_name,' ',u.last_name) AS creatorName , d.\"name\" as departmentName ,\n" +
-                    " CASE \n" +
-                    " WHEN rr.request_status = 1 THEN 'Đang xử lý' \n" +
-                    " WHEN rr.request_status = 2 THEN 'Đã hủy' \n" +
-                    " WHEN rr.request_status = 3 THEN 'Hoàn thành' \n" +
-                    " ELSE '' END as requestStatus , dr.\"name\" as drugName, rrd.quantity as quantity , un.unit_name as unitName\n" +
-                    " FROM request_receipt as rr \n" +
-                    " LEFT JOIN request_receipt_drug as rrd ON rr.\"id\" = rrd.request_receipt_id\n" +
-                    " JOIN users as u ON rr.user_id = u.\"id\" \n" +
-                    " JOIN department as d ON d.\"id\" = u.department_id\n" +
-                    " JOIN drug as dr ON dr.\"id\" = rrd.drug_id \n" +
-                    " JOIN unit as un ON un.\"id\" = dr.unit_id\n" +
-                    " WHERE \n" +
-                    " (:code = '' OR :code = rr.request_receipt_code ) \n" +
-                    " AND (:startDate = CAST ('1970-01-01' as DATE) OR :startDate <= CAST(rr.request_date as DATE)) \n" +
-                    " AND (:endDate = CAST('1970-01-01' as DATE) OR :endDate >= CAST(rr.request_date as DATE)) \n" +
-                    " AND (:name = '' OR :name = d.name ) \n" +
-                    " AND (:status = -1 OR :status = rr.request_status) \n" +
-                    "ORDER BY d.name , rr.request_receipt_code";
-
-
-    public static final String GET_REQUEST_RECEIPT_CODE =
-            "SELECT rr.request_receipt_code as requestReceiptCode , CAST(rr.request_date as DATE ) as requestDate \n" +
-                    ",concat(u.first_name,' ',u.last_name) AS creatorName , d.name as departmentName ,\n" +
+            "SELECT rr.id as id,rr.request_receipt_code as requestReceiptCode , CAST(rr.request_date as DATE) as requestDate, \n" +
+                    "concat(u.first_name,' ', u.last_name) as creatorName , d.name as departmentName,\n" +
                     "CASE \n" +
-                    "  WHEN rr.request_status = 1 THEN 'Đang xử lý'\n" +
+                    "\tWHEN rr.request_status = 1 THEN 'Chờ xác nhận'\n" +
                     "  WHEN rr.request_status = 2 THEN 'Đã hủy'\n" +
-                    "  WHEN rr.request_status = 3 THEN 'Hoàn thành' \n" +
+                    "\tWHEN rr.request_status = 3 THEN 'Đã xác nhận' \n" +
                     "ELSE '' \n" +
-                    " END as requestStatus FROM request_receipt as rr \n" +
-                    " JOIN users AS u ON u.id = rr.user_id \n" +
-                    " JOIN department AS d ON d.id = u.department_id";
+                    "END as requestStatus \n" +
+                    "FROM request_receipt as rr \n" +
+                    "JOIN users as u ON rr.user_id = u.id \n" +
+                    "JOIN department as d ON u.department_id = d.id \n" +
+                    "WHERE \n" +
+                    "(rr.request_status = :status OR :status = -1 )\n" +
+                    "AND (rr.request_receipt_code = :code OR :code = '' )\n" +
+                    "AND (CAST(rr.request_date as DATE) >= :startDate OR :startDate = CAST ('1970-01-01' as DATE) ) \n" +
+                    "AND (CAST(rr.request_date as DATE) <= :endDate OR :endDate = CAST ('1970-01-01' as DATE)) ";
+
+
+    public static final String GET_LIST_DRUG_BY_REQUEST_RECEIPT_ID =
+            "SELECT d.code as drugCode , d.name as drugName , CAST(d.expiry_date as DATE) as expiryDate  \n" +
+                    ", un.unit_name as unitName , rrd.quantity as quantity  \n" +
+                    "FROM request_receipt_drug as rrd \n" +
+                    "     JOIN request_receipt as rr ON rr.\"id\" = rrd.request_receipt_id \n" +
+                    "     JOIN drug as d ON d.\"id\" = rrd.drug_id \n" +
+                    "     JOIN unit as un ON d.unit_id = un.id\n" +
+                    "     WHERE (rrd.request_receipt_id = :id or :id = -1 )";
+
+    public static final String GET_LIST_DRUG_FROM_INVENTORY =
+            "SELECT DISTINCT inventory.drug_id as id , drug.\"name\" as name,drug.code as code " +
+                    " FROM inventory  JOIN drug ON drug.id = inventory.drug_id " +
+                    "ORDER BY drug_id";
+
+    public static final String GET_DRUG_ID_AND_QUANTITY =
+            "SELECT drug_id as drugId , quantity as quantity FROM request_receipt_drug WHERE (request_receipt_id = :id)";
 }

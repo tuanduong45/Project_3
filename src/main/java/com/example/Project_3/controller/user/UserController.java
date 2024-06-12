@@ -31,12 +31,7 @@ public class UserController {
                            @RequestParam(name = "id") Long userId ){
         userService.updateUser(updateDTO,userId);
     }
- /*   @DeleteMapping("/delete")
-    @PreAuthorize("hasAuthority('ROLE_DEPARTMENT_MANAGER') " +
-            "or hasAuthority('ROLE_HOSPITAL_MANAGER') or hasAuthority('ROLE_DEPARTMENT_PHARMACY_MANAGER')")
-    public void deleteUser(@RequestParam(name = "id") Long userId ){
-        userService.deleteUser(userId);
-    } */
+
     @GetMapping("/getList")
     @PreAuthorize("hasAuthority('ROLE_DEPARTMENT_MANAGER') " +
             "or hasAuthority('ROLE_HOSPITAL_MANAGER') or hasAuthority('ROLE_DEPARTMENT_PHARMACY_MANAGER')")

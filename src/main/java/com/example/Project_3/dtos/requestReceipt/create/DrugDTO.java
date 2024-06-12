@@ -8,8 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DrugDTO {
-    Long drugID;
+    Long drugId;
     Long quantity ;
-    Long unitID;
-
+    Long unitId;
 }

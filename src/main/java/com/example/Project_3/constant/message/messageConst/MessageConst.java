@@ -13,6 +13,8 @@ public class MessageConst {
 
         public static final String SUPPLIER = "Supplier";
 
+        public static final String REQUEST_RECEIPT = "RequestReceipt";
+
 
     }
 

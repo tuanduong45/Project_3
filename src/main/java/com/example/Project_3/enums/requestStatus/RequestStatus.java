@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @Getter
 public enum RequestStatus {
     ALL(-1 , "Tất cả"),
-    PROCESSING(1,"Đang xử lý"),
+    PROCESSING(1,"Chờ xác nhận"),
     CANCELED(2,"Đã hủy "),
-    COMPLETE(3,"Hoàn thành");
+    COMPLETE(3,"Đã xác nhận");
 
     private final Integer value;
     private final String name;

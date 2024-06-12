@@ -2,7 +2,6 @@ package com.example.Project_3.sevice.importReceipt.impl;
 
 import com.example.Project_3.dtos.importReceipt.*;
 import com.example.Project_3.dtos.importReceiptDetail.IGetListImportReceiptDetail;
-import com.example.Project_3.dtos.importReceiptDetail.ImportReceiptDetailLstDTO;
 import com.example.Project_3.entities.drug.DrugImportReceipt;
 import com.example.Project_3.entities.importReceipt.ImportReceipt;
 import com.example.Project_3.entities.inventory.Inventory;
@@ -16,12 +15,10 @@ import com.example.Project_3.repositories.supplier.SupplierRepository;
 import com.example.Project_3.repositories.user.UserRepository;
 import com.example.Project_3.sevice.importReceipt.ImportReceiptService;
 import com.example.Project_3.utils.auth.AuthUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class ImportReceiptImpl implements ImportReceiptService {

@@ -13,6 +13,5 @@ import java.util.Set;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class RequestReceiptCreateDTO {
-    Long userId;
     Set<DrugDTO> drugDTOS ;
 }

@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.Date;
 
@@ -14,6 +15,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Table(name = "inventory")
 @Entity
+@ToString
 public class Inventory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
