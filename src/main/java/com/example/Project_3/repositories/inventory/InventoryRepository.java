@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,6 +36,6 @@ public interface InventoryRepository extends JpaRepository<Inventory,Long> {
     @Transactional
     @Modifying
     @Query("UPDATE Inventory inventory SET inventory.quantity = :quantity WHERE inventory.produceBatchNumber = :produceBatchNumber")
-    void updateQuantity(String produceBatchNumber,Long quantity);
+    Integer updateQuantity(String produceBatchNumber,Long quantity);
 
 }

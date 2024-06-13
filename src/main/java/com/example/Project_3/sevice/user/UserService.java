@@ -26,7 +26,7 @@ public interface UserService {
     List<IGetListUser> getListUser( String code , String name, String phoneNumber,
                                    String email, Long departmentId , Long roleId);
 
-    void switchUserStatus(Long userId, UserStatusEnum status);
+    void switchUserStatus(Long userId);
 
     
 

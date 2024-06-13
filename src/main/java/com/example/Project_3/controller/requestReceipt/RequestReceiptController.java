@@ -12,6 +12,7 @@ import com.example.Project_3.sevice.requestReceipt.RequestReceiptService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -25,11 +26,18 @@ public class RequestReceiptController {
     private RequestReceiptService requestReceiptService;
 
     @PostMapping("/create")
+    @PreAuthorize("hasAuthority('ROLE_DEPARTMENT_MANAGER')" +
+            "or hasAuthority('ROLE_DEPARTMENT_NURSING')")
     public void createRequestReceipt(@RequestBody RequestReceiptCreateDTO createDTO) {
         requestReceiptService.createRequestReceipt(createDTO);
     }
 
     @GetMapping("/get-list")
+    @PreAuthorize("hasAuthority('ROLE_DEPARTMENT_MANAGER')" +
+            "or hasAuthority('ROLE_DEPARTMENT_NURSING') " +
+            "or hasAuthority('ROLE_PHARMACY_STOCKER') " +
+            "or hasAuthority('ROLE_DEPARTMENT_PHARMACY_MANAGER') " +
+            "or hasAuthority('ROLE_HOSPITAL_MANAGER')")
     public List<IGetListRequestReceipt> getRequestReceiptList(@RequestParam(value = "requestCode", defaultValue = "", required = false) String requestCode,
                           @DateTimeFormat(pattern = "yyyy-MM-dd")
                           @RequestParam(value = "startDate", defaultValue = "1970-01-01", required = false) Date startDate,
@@ -40,17 +48,31 @@ public class RequestReceiptController {
     }
 
     @GetMapping("/get-list-drug")
+    @PreAuthorize("hasAuthority('ROLE_DEPARTMENT_MANAGER')" +
+            "or hasAuthority('ROLE_DEPARTMENT_NURSING') " +
+            "or hasAuthority('ROLE_PHARMACY_STOCKER') " +
+            "or hasAuthority('ROLE_DEPARTMENT_PHARMACY_MANAGER') " +
+            "or hasAuthority('ROLE_HOSPITAL_MANAGER')")
     public List<IGetRequestReceiptListDrug> getListDrugByRequestReceiptId(@RequestParam(value = "id") Long requestReceiptId){
         return requestReceiptService.getListDrugRequestReceiptId(requestReceiptId);
     }
 
     @GetMapping("/get-list-drug-from-inventory")
+    @PreAuthorize("hasAuthority('ROLE_DEPARTMENT_MANAGER')" +
+            "or hasAuthority('ROLE_DEPARTMENT_NURSING')")
     public List<ICommonIdCodeName> getListDrugFromInventory(){
         return requestReceiptService.getListDrugFromInventory();
     }
-    @PutMapping("/confirm-receipt")
+    @GetMapping("/confirm-receipt")
+    @PreAuthorize("hasAuthority('ROLE_DEPARTMENT_PHARMACY_MANAGER') ")
     public void confirmRequestReceipt(@RequestParam("id") Long requestReceiptId) {
         requestReceiptService.confirmRequestReceipt(requestReceiptId);
+    }
+
+    @GetMapping("/reject-receipt")
+    @PreAuthorize("hasAuthority('ROLE_DEPARTMENT_PHARMACY_MANAGER') ")
+    public void rejectRequestReceipt(@RequestParam("id") Long requestReceiptId) {
+        requestReceiptService.rejectRequestReceipt(requestReceiptId);
     }
 
 }

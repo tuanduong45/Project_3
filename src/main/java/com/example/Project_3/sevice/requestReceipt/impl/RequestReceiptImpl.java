@@ -9,7 +9,6 @@ import com.example.Project_3.dtos.requestReceipt.getList.IGetComonDrugIdQuantity
 import com.example.Project_3.dtos.requestReceipt.getList.IGetListRequestReceipt;
 import com.example.Project_3.dtos.requestReceipt.getList.IGetRequestReceiptListDrug;
 import com.example.Project_3.entities.drug.DrugRequestReceipt;
-import com.example.Project_3.entities.inventory.Inventory;
 import com.example.Project_3.entities.requestReceipt.RequestReceipt;
 import com.example.Project_3.enums.requestStatus.RequestStatus;
 import com.example.Project_3.exceptions.exceptionFactory.ExceptionFactory;
@@ -51,7 +50,6 @@ public class RequestReceiptImpl implements RequestReceiptService {
                 .map(value -> new DrugRequestReceipt(value.getDrugId(), requestReceiptId,
                         value.getQuantity(), value.getUnitId())).collect(Collectors.toSet());
 
-
         drugRequestReceiptRepository.saveAll(drugRequestReceipts);
     }
 
@@ -72,7 +70,7 @@ public class RequestReceiptImpl implements RequestReceiptService {
     public List<ICommonIdCodeName> getListDrugFromInventory() {
         return requestReceiptRepository.getListDrugFromInventory();
     }
-    @Transactional
+
     @Override
     public void confirmRequestReceipt(Long requestReceiptId) {
         Optional<RequestReceipt> requestReceipt = requestReceiptRepository.findById(requestReceiptId);
@@ -106,6 +104,18 @@ public class RequestReceiptImpl implements RequestReceiptService {
             }
 
             requestReceipt.get().setRequestStatus(RequestStatus.COMPLETE.getValue());
+            requestReceiptRepository.save(requestReceipt.get());
+        }
+    }
+
+    @Override
+    public void rejectRequestReceipt(Long requestReceiptId) {
+        Optional<RequestReceipt> requestReceipt = requestReceiptRepository.findById(requestReceiptId);
+        if(!requestReceipt.isPresent()){
+            throw exceptionFactory.resourceNotFoundException(ErrorKey.RequestReceipt.NOT_FOUND_ERROR_CODE, MessageConst.RESOURCE_NOT_FOUND,
+                    MessageConst.Resources.REQUEST_RECEIPT,ErrorKey.RequestReceipt.ID);
+        } else {
+            requestReceipt.get().setRequestStatus(RequestStatus.CANCELED.getValue());
             requestReceiptRepository.save(requestReceipt.get());
         }
     }

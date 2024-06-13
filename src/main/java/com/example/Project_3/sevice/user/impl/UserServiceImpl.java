@@ -174,8 +174,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void switchUserStatus(Long userId, UserStatusEnum status) {
-        userRepository.switchUserStatus(userId,status.getStatus());
+    public void switchUserStatus(Long userId) {
+        userRepository.switchUserStatus(userId);
 
     }
 

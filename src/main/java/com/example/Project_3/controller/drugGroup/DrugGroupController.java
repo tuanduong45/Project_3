@@ -5,6 +5,7 @@ import com.example.Project_3.dtos.drugGroup.DrugGroupUpdateDTO;
 import com.example.Project_3.entities.drugGroup.DrugGroup;
 import com.example.Project_3.sevice.drugGroup.DrugGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/drug-group")
+@PreAuthorize("hasAuthority('ROLE_DEPARTMENT_PHARMACY_MANAGER') or hasAuthority('ROLE_HOSPITAL_MANAGER')")
 public class DrugGroupController {
     @Autowired
     private DrugGroupService drugGroupService ;

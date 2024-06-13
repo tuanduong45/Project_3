@@ -30,7 +30,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Transactional
     @Modifying
-    @Query(value = "UPDATE User user SET user.status = :status WHERE user.id = :userId")
-    Integer switchUserStatus(Long userId, Integer status);
+    @Query(value = "UPDATE User user SET user.status = 1 WHERE user.id = :userId")
+    Integer switchUserStatus(Long userId);
 
 }

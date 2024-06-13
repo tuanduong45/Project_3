@@ -6,6 +6,7 @@ import com.example.Project_3.dtos.importReceiptDetail.IGetListImportReceiptDetai
 import com.example.Project_3.sevice.importReceipt.ImportReceiptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -14,6 +15,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/import-receipt")
+@PreAuthorize("hasAuthority('ROLE_DEPARTMENT_PHARMACY_MANAGER') " +
+        "or hasAuthority('ROLE_HOSPITAL_MANAGER') " +
+        "or hasAuthority('ROLE_PHARMACY_STOCKER') ")
 public class ImportReceiptController {
     @Autowired
     private ImportReceiptService importReceiptService ;

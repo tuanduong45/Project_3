@@ -8,8 +8,8 @@ import lombok.Setter;
 @Getter
 public enum UserStatusEnum {
     ACTIVE(0, "Đang hoạt động"),
-    INACTIVE(1, "Tạm dừng hoạt động"),
-    DISABLED(2, "Tắt hoạt động");
+    INACTIVE(1, "Tạm dừng hoạt động");
+
 
     private final Integer status;
     private final String statusText;

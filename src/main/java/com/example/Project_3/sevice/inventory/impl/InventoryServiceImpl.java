@@ -3,8 +3,6 @@ package com.example.Project_3.sevice.inventory.impl;
 import com.example.Project_3.dtos.inventory.IGetListDrugBeWarned;
 import com.example.Project_3.dtos.inventory.IGetListInventory;
 import com.example.Project_3.dtos.inventory.IGetListInventoryDetail;
-import com.example.Project_3.dtos.inventory.IGetListInventoryMinExMaxQuantity;
-import com.example.Project_3.entities.inventory.Inventory;
 import com.example.Project_3.repositories.inventory.InventoryRepository;
 import com.example.Project_3.sevice.inventory.InventoryService;
 import org.springframework.beans.factory.annotation.Autowired;

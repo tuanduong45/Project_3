@@ -13,9 +13,9 @@ public class CorsConfig implements WebMvcConfigurer {
         registry.addMapping("/**") // Cho phép tất cả các đường dẫn
                 .allowedOrigins("http://localhost:3000")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                .allowedHeaders("authorization", "content-type", "x-auth-token","access-control-allow-origin")
+                .allowedHeaders("authorization", "content-type", "x-auth-token","access-control-allow-origin","X-PINGOTHER")
                 .exposedHeaders("x-auth-token")
-                .allowCredentials(false).maxAge(3600);
+                .allowCredentials(true).maxAge(3600);
     }
 
 }

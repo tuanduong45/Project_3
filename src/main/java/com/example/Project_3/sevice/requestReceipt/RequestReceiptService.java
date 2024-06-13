@@ -29,6 +29,8 @@ public interface RequestReceiptService {
     // xác nhận đơn yêu cầu thuốc
 
     void confirmRequestReceipt(Long requestReceiptId);
+    // từ chối đơn yêu caauf thuốc
+    void rejectRequestReceipt(Long requestReceiptId);
 
 
 
