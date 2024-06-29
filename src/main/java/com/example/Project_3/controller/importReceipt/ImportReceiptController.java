@@ -1,5 +1,6 @@
 package com.example.Project_3.controller.importReceipt;
 
+import com.example.Project_3.dtos.importReceipt.IGetInforToReport;
 import com.example.Project_3.dtos.importReceipt.IGetLstImportReceipt;
 import com.example.Project_3.dtos.importReceipt.ImportReceiptDTO;
 import com.example.Project_3.dtos.importReceiptDetail.IGetListImportReceiptDetail;
@@ -41,6 +42,10 @@ public class ImportReceiptController {
     public List<IGetListImportReceiptDetail> getListImportReceiptDetails(@RequestParam("id") Long importReceiptId){
         return importReceiptService.getListImportReceiptDetail(importReceiptId);
     }
+
+
+
+
 
 
 

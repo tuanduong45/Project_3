@@ -6,6 +6,7 @@ import com.example.Project_3.dtos.common.ICommonIdCodeName;
 import com.example.Project_3.dtos.inventory.IGetListInventoryMinExMaxQuantity;
 import com.example.Project_3.dtos.requestReceipt.create.RequestReceiptCreateDTO;
 import com.example.Project_3.dtos.requestReceipt.getList.IGetComonDrugIdQuantity;
+import com.example.Project_3.dtos.requestReceipt.getList.IGetInforReport;
 import com.example.Project_3.dtos.requestReceipt.getList.IGetListRequestReceipt;
 import com.example.Project_3.dtos.requestReceipt.getList.IGetRequestReceiptListDrug;
 import com.example.Project_3.entities.drug.DrugRequestReceipt;
@@ -20,7 +21,6 @@ import com.example.Project_3.sevice.requestReceipt.RequestReceiptService;
 import com.example.Project_3.utils.auth.AuthUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -119,6 +119,8 @@ public class RequestReceiptImpl implements RequestReceiptService {
             requestReceiptRepository.save(requestReceipt.get());
         }
     }
+
+
 
     // lấy drugid và quantity bằng request receipt id
     public List<IGetComonDrugIdQuantity> getDrugIdQuantityOfRequestReceipt(Long requestReceiptId) {

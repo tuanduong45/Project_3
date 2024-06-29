@@ -23,4 +23,6 @@ public  class SQLDrug {
 
     public static final String GET_LIST_DRUG_ID_CODE_NAME =
             "SELECT d.id as id , d.code as code , d.\"name\" as name FROM drug as d ORDER BY id";
+
+
 }

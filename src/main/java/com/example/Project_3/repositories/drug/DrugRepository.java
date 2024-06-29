@@ -28,4 +28,6 @@ public interface DrugRepository extends JpaRepository<Drug,Long> {
 
     @Query(nativeQuery = true,value = SQLDrug.GET_LIST_DRUG_ID_CODE_NAME )
     List<ICommonIdCodeName> getListDrugIdCodeName();
+
+
 }

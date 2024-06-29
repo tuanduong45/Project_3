@@ -1,5 +1,6 @@
 package com.example.Project_3.sevice.importReceipt;
 
+import com.example.Project_3.dtos.importReceipt.IGetInforToReport;
 import com.example.Project_3.dtos.importReceipt.IGetLstImportReceipt;
 import com.example.Project_3.dtos.importReceipt.ImportReceiptDTO;
 import com.example.Project_3.dtos.importReceiptDetail.IGetListImportReceiptDetail;
@@ -20,6 +21,12 @@ public interface ImportReceiptService {
 
     // lấy danh sách đơn thuốc theo id
     List<IGetListImportReceiptDetail> getListImportReceiptDetail(Long id);
+
+
+
+
+
+
 
 
 

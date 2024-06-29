@@ -37,4 +37,17 @@ public class SQLRequestReceipt {
 
     public static final String GET_DRUG_ID_AND_QUANTITY =
             "SELECT drug_id as drugId , quantity as quantity FROM request_receipt_drug WHERE (request_receipt_id = :id)";
+
+    public static final String GET_REPORT_BY_DATE =
+            "SELECT SUM(rrd.quantity) as quantity, dp.\"name\" as departmentName  \n" +
+                    "FROM request_receipt_drug as rrd  \n" +
+                    " JOIN request_receipt as rr ON rrd.request_receipt_id = rr.id\n" +
+                    " JOIN drug as d ON rrd.drug_id = d.\"id\"\n" +
+                    " JOIN users as u ON rr.user_id = u.id\n" +
+                    " JOIN department as dp ON dp.id = u.department_id \n" +
+                    " WHERE \n" +
+                    "    CAST(rr.request_date AS DATE) >= :startDate AND \n" +
+                    "    CAST(rr.request_date AS DATE) <= :endDate \n" +
+                    " GROUP BY dp.\"name\" \n" +
+                    " ORDER BY dp.name";
 }

@@ -31,5 +31,37 @@ public class SQLInventory {
             "SELECT id , quantity,produce_batch_number as produceBatchNumber " +
                     "FROM inventory  WHERE (drug_id = :id) ORDER BY expiry_date , quantity DESC";
 
+    public static final String GET_REPORT_INVENTORY =
+            "SELECT dg.drug_group_name as drugGroupName , SUM(i.quantity) as quantity FROM inventory as i \n" +
+                    "JOIN drug as d ON i.drug_id = d.id\n" +
+                    "JOIN drug_group as dg ON d.drug_group_id = dg.id\n" +
+                    "     WHERE CAST(i.expiry_date as DATE) > CURRENT_DATE \n" +
+                    "GROUP BY dg.drug_group_name\n" +
+                    "ORDER BY quantity";
+
+    public static final String GET_SUMMARIZE_REPORT =
+            "SELECT SUM(dir.quantity) AS importQuantity, SUM(rrd.quantity) AS exportQuantity , SUM(i.drug_id) as inventoryQuantity , d.name AS drugName ,d.id AS drugId, u.unit_name as unitName,\n" +
+                    "SUM(dir.total_amount) as total\n" +
+                    "FROM drug as d \n" +
+                    "JOIN drug_import_receipt as dir ON d.id = dir.drug_id \n" +
+                    "JOIN request_receipt_drug as rrd ON rrd.drug_id = d.id\n" +
+                    "JOIN inventory as i ON i.drug_id = d.id \n" +
+                    "JOIN import_receipt as ir ON dir.import_receipt_id = ir.id\n" +
+                    "JOIN request_receipt as rr ON rr.id = rrd.request_receipt_id\n" +
+                    "JOIN unit as u ON u.\"id\" = d.unit_id\n" +
+                    "WHERE " +
+                    " (CAST(ir.import_date AS DATE) >= :startDate OR :startDate = CAST ('1970-01-01' as DATE))\n" +
+                    " AND (CAST(ir.import_date AS DATE) <= :endDate OR :endDate = CAST ('1970-01-01' as DATE))\n" +
+                    " AND (CAST(rr.request_date AS DATE) >= :startDate OR :startDate = CAST ('1970-01-01' as DATE))\n" +
+                    " AND (CAST(rr.request_date AS DATE) <= :endDate OR :endDate = CAST ('1970-01-01' as DATE))" +
+                    " AND rr.request_status = 3\n" +
+                    "AND i.expiry_date >= CURRENT_DATE\n" +
+                    "GROUP BY  d.name,d.id , u.unit_name\n" +
+                    "ORDER BY d.name";
+
+
+
+
+
 
 }

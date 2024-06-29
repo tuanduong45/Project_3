@@ -4,6 +4,7 @@ import com.example.Project_3.dtos.common.ICommonIdCodeName;
 import com.example.Project_3.dtos.requestReceipt.create.RequestReceiptCreateDTO;
 
 import com.example.Project_3.dtos.requestReceipt.getList.IGetComonDrugIdQuantity;
+import com.example.Project_3.dtos.requestReceipt.getList.IGetInforReport;
 import com.example.Project_3.dtos.requestReceipt.getList.IGetListRequestReceipt;
 import com.example.Project_3.dtos.requestReceipt.getList.IGetRequestReceiptListDrug;
 import com.example.Project_3.enums.requestStatus.RequestStatus;
@@ -31,6 +32,7 @@ public interface RequestReceiptService {
     void confirmRequestReceipt(Long requestReceiptId);
     // từ chối đơn yêu caauf thuốc
     void rejectRequestReceipt(Long requestReceiptId);
+
 
 
 

@@ -3,6 +3,7 @@ package com.example.Project_3.repositories.requestReceipt;
 import com.example.Project_3.constant.sql.requestReceipt.SQLRequestReceipt;
 import com.example.Project_3.dtos.common.ICommonIdCodeName;
 import com.example.Project_3.dtos.requestReceipt.getList.IGetComonDrugIdQuantity;
+import com.example.Project_3.dtos.requestReceipt.getList.IGetInforReport;
 import com.example.Project_3.dtos.requestReceipt.getList.IGetListRequestReceipt;
 import com.example.Project_3.dtos.requestReceipt.getList.IGetRequestReceiptListDrug;
 import com.example.Project_3.entities.requestReceipt.RequestReceipt;
@@ -31,4 +32,8 @@ public interface RequestReceiptRepository extends JpaRepository<RequestReceipt,L
 
     @Query(nativeQuery = true , value = SQLRequestReceipt.GET_DRUG_ID_AND_QUANTITY)
     List<IGetComonDrugIdQuantity> getDrugIdQuantityOfRequestReceipt(@Param("id") Long requestReceiptId);
+
+    @Query(nativeQuery = true,value = SQLRequestReceipt.GET_REPORT_BY_DATE)
+    List<IGetInforReport> reportRequestReceiptByDate(@Param("startDate") Date startDate
+            ,@Param("endDate") Date endDate);
 }
