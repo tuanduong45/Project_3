@@ -21,6 +21,7 @@ import com.example.Project_3.repositories.user.UserRepository;
 import com.example.Project_3.repositories.userRole.UserRoleRepository;
 import com.example.Project_3.sevice.user.UserService;
 
+import com.example.Project_3.utils.auth.AuthUtils;
 import com.example.Project_3.utils.auth.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -177,6 +178,11 @@ public class UserServiceImpl implements UserService {
     public void switchUserStatus(Long userId) {
         userRepository.switchUserStatus(userId);
 
+    }
+
+    @Override
+    public User getCurrentUser() {
+        return AuthUtils.getCurrentUser();
     }
 
 

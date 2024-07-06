@@ -28,6 +28,8 @@ public interface UserService {
 
     void switchUserStatus(Long userId);
 
+    User getCurrentUser();
+
     
 
 }

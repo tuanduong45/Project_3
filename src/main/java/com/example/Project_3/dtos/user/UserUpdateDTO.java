@@ -16,7 +16,7 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+
 public class UserUpdateDTO {
     private String identificationNumber;
     private String identityTypeName;

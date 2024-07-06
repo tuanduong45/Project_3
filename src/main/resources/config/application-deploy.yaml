@@ -1,16 +1,16 @@
 # Cấu hình spring
 spring:
- datasource:
+  datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/project_3
+    url: jdbc:postgresql://projectfinal.crcgcoy0ebdj.ap-southeast-2.rds.amazonaws.com:5434/posgres
     username: postgres
     password: 10112001
- jpa:
-   generate-ddl: true
-   hibernate:
-    ddl-auto: update
-   properties:
-     hibernate:
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
         show_sql: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
         use_sql_comment: true
@@ -23,7 +23,7 @@ springdoc:
 
 # Cấu hình server
 server:
-  port: 8081
+  port: 5000
 #Cấu hình Jwt
 jwt:
   secretKey: pu0cnKfubtWBm4l8BNdgo7XoznTQdFgjJ+A2yjfWSWWnkgKYRjN78g8Bx7AxKGRu

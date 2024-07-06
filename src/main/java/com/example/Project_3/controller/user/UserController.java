@@ -14,7 +14,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserController {
     @Autowired
     private UserService userService ;
@@ -34,7 +34,7 @@ public class UserController {
         userService.updateUser(updateDTO,userId);
     }
 
-    @GetMapping("/getList")
+    @GetMapping("/get-list")
     @PreAuthorize("hasAuthority('ROLE_DEPARTMENT_MANAGER') " +
             "or hasAuthority('ROLE_HOSPITAL_MANAGER') " +
             "or hasAuthority('ROLE_DEPARTMENT_PHARMACY_MANAGER') " +
@@ -56,6 +56,11 @@ public class UserController {
           //  "or hasAuthority('ROLE_HOSPITAL_MANAGER') or hasAuthority('ROLE_DEPARTMENT_PHARMACY_MANAGER')")
     public void switchUserStatus(@RequestParam(name = "id") Long userId) {
         userService.switchUserStatus(userId);
+    }
+
+    @GetMapping("/get-current-user-name")
+    public String getCurrentUser() {
+        return userService.getCurrentUser().getUserName();
     }
 
 }
